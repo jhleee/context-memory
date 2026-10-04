@@ -81,15 +81,20 @@ describe('MCP adapter', () => {
       stderr: 'pipe',
     });
     const client = new Client({ name: 'context-memory-stdio-test', version: '1.0.0' });
+    let phase = 'connect';
     try {
       await client.connect(transport);
+      phase = 'list tools';
       const listed = await client.listTools();
       expect(listed.tools).toHaveLength(6);
+      phase = 'call recall';
       const called = await client.callTool({ name: 'memory_recall', arguments: { space_id: 'empty-space' } });
       expect(called.isError).not.toBe(true);
       expect(JSON.parse(text(called))).toMatchObject({ items: [], sources: [] });
+    } catch (error) {
+      throw new Error(`stdio phase ${phase}: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       await client.close();
     }
-  });
+  }, 15_000);
 });

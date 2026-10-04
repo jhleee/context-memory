@@ -81,30 +81,23 @@ export async function runMcp(path = './memory.db'): Promise<void> {
   const memory = new Memory(path);
   const server = createMcpServer(memory);
   const transport = new StdioServerTransport();
+  const keepAlive = setInterval(() => undefined, 60_000);
+  let stop: () => void = () => undefined;
+  const stopped = new Promise<void>((resolve) => {
+    stop = resolve;
+  });
+  transport.onclose = stop;
+  process.once('SIGINT', stop);
+  process.once('SIGTERM', stop);
+  process.stdin.once('end', stop);
   try {
-    await new Promise<void>((resolve) => {
-      // Keep the CLI alive even when Node has no active handles beyond piped stdio.
-      const keepAlive = setInterval(() => undefined, 60_000);
-      const stop = () => {
-        process.stderr.write('MCP STOP\n');
-        clearInterval(keepAlive);
-        process.removeListener('SIGINT', stop);
-        process.removeListener('SIGTERM', stop);
-        process.stdin.removeListener('end', stop);
-        transport.onclose = undefined;
-        resolve();
-      };
-      // Set this before connect: Protocol.connect chains this handler with its own.
-      transport.onclose = stop;
-      process.once('SIGINT', stop);
-      process.once('SIGTERM', stop);
-      process.stdin.once('end', stop);
-      void server.connect(transport).catch((error: unknown) => {
-        process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
-        stop();
-      });
-    });
+    await server.connect(transport);
+    await stopped;
   } finally {
+    clearInterval(keepAlive);
+    process.removeListener('SIGINT', stop);
+    process.removeListener('SIGTERM', stop);
+    process.stdin.removeListener('end', stop);
     await server.close();
     memory.close();
   }
