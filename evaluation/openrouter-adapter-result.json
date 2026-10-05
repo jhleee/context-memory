@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-05T06:48:32.549Z",
+  "mcp": {
+    "transport": "real child process stdio",
+    "tools": [
+      "memory_record",
+      "memory_recall",
+      "memory_correct",
+      "memory_forget",
+      "memory_explain",
+      "memory_timeline",
+      "memory_index",
+      "memory_suggest"
+    ],
+    "indexing": {
+      "queued": 0,
+      "processed": 3,
+      "failed": 0
+    },
+    "top1": "transfer",
+    "retrieval": {
+      "requested": "decision",
+      "used": "decision",
+      "warnings": [],
+      "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+      "decision_model": "inception/mercury-decide:free"
+    },
+    "suggestions": {
+      "memory_id": "mention",
+      "suggestions": [
+        {
+          "id": "lia",
+          "score": 0.9820137866163753,
+          "reason": "OpenRouter noul relevance"
+        }
+      ],
+      "unresolved": true,
+      "warnings": []
+    }
+  },
+  "http": {
+    "authenticated": true,
+    "unauthenticated_status": 401,
+    "top1": "privacy",
+    "retrieval": {
+      "requested": "decision",
+      "used": "decision",
+      "warnings": [],
+      "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+      "decision_model": "inception/mercury-decide:free"
+    },
+    "status": {
+      "embedding": {
+        "enabled": true,
+        "model": "nvidia/nemotron-3-embed-1b:free",
+        "dimensions": 2048
+      },
+      "decision": {
+        "enabled": true,
+        "model": "inception/mercury-decide:free"
+      },
+      "jobs": [
+        {
+          "state": "done",
+          "count": 3
+        }
+      ],
+      "indexing": false
+    }
+  },
+  "dashboard": {
+    "controls_present": true,
+    "visual_browser_test": false
+  },
+  "mention_unresolved": true
+}

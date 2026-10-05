@@ -7,6 +7,7 @@ import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { Memory } from '../src/memory.js';
 import { createMcpServer } from '../src/mcp.js';
+import { MemoryRuntime } from '../src/runtime.js';
 
 const memories: Memory[] = [];
 const directories: string[] = [];
@@ -64,6 +65,39 @@ describe('MCP adapter', () => {
       } });
       expect(invalid.isError).toBe(true);
       expect(memory.recall({ space_id: 'alpha', query: 'secret' }).items).toHaveLength(0);
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('adds hybrid indexing and unresolved mention suggestions when a runtime is configured', async () => {
+    const memory = new Memory(':memory:');
+    memories.push(memory);
+    const runtime = new MemoryRuntime(memory, {
+      embedding: { model: 'test-embedding', dimensions: 2, async embed(texts) { return texts.map(() => [1, 0]); } },
+      decision: { async suggest(_question, candidates) { return candidates.map(candidate => ({ id: candidate.id, score: 0.7, reason: 'test suggestion' })); } },
+    });
+    const server = createMcpServer(memory, runtime);
+    const client = new Client({ name: 'context-memory-runtime-test', version: '1.0.0' });
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    try {
+      await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
+      expect((await client.listTools()).tools.map(tool => tool.name).sort()).toEqual([
+        'memory_correct', 'memory_explain', 'memory_forget', 'memory_index', 'memory_recall', 'memory_record', 'memory_suggest', 'memory_timeline',
+      ]);
+      const recorded = await client.callTool({ name: 'memory_record', arguments: {
+        space_id: 'runtime-space', evidence: { source_type: 'test', content: 'Black cloak mention evidence.' },
+        entities: [{ id: 'lia', name: 'Lia' }],
+        memories: [{ id: 'cloak-mention', kind: 'mention', content: 'Woman in a black cloak', resolution: 'unresolved' }],
+      } });
+      expect(recorded.isError).not.toBe(true);
+      const indexed = await client.callTool({ name: 'memory_index', arguments: { space_id: 'runtime-space' } });
+      expect(JSON.parse(text(indexed))).toMatchObject({ queued: 0, processed: 1, failed: 0 });
+      const recalled = await client.callTool({ name: 'memory_recall', arguments: { space_id: 'runtime-space', query: 'cloak', mode: 'hybrid' } });
+      expect(JSON.parse(text(recalled))).toMatchObject({ retrieval: { requested: 'hybrid', used: 'hybrid' } });
+      const suggestion = await client.callTool({ name: 'memory_suggest', arguments: { space_id: 'runtime-space', memory_id: 'cloak-mention' } });
+      expect(JSON.parse(text(suggestion))).toMatchObject({ unresolved: true, suggestions: [{ id: 'lia', score: 0.7 }] });
     } finally {
       await client.close();
       await server.close();

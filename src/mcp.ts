@@ -2,7 +2,9 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 import { Memory } from './memory.js';
-import type { RecallResult } from './types.js';
+import { createRuntimeFromEnv, type RuntimeEnvOptions } from './runtime.js';
+import type { MemoryRuntime } from './runtime.js';
+import type { QueryInput, RecallResult, RuntimeQueryInput } from './types.js';
 
 const jsonObject = z.record(z.string(), z.unknown());
 const evidence = z.object({
@@ -26,7 +28,7 @@ function failure(error: unknown) {
 }
 
 /** Create the MCP adapter. It owns no storage; all work goes through Memory. */
-export function createMcpServer(memory: Memory): McpServer {
+export function createMcpServer(memory: Memory, runtime?: MemoryRuntime): McpServer {
   const server = new McpServer({ name: 'context-memory', version: '0.1.0' });
 
   server.tool('memory_record', 'Store source evidence and structured memory items.', {
@@ -34,29 +36,33 @@ export function createMcpServer(memory: Memory): McpServer {
     entities: z.array(z.object({ id: z.string().optional(), name: z.string().min(1), metadata: jsonObject.optional() })).optional(),
     links: z.array(link).optional(), idempotency_key: z.string().optional(),
   }, async (input) => {
-    try { return result(memory.record(input)); } catch (error) { return failure(error); }
+    try { return result(runtime ? runtime.record(input) : memory.record(input)); } catch (error) { return failure(error); }
   });
 
-  server.tool('memory_recall', 'Search memories within one space.', {
+  const recallSchema: z.ZodRawShape = {
     space_id: z.string().min(1), query: z.string().optional(), kind: z.string().optional(),
     entity_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(),
     at: z.string().optional(), limit: z.number().int().positive().max(200).optional(),
     max_chars: z.number().int().positive().optional(), recent_since: z.string().optional(),
+  };
+  if (runtime) recallSchema.mode = z.enum(['lexical', 'hybrid', 'decision']).optional();
+  server.tool('memory_recall', 'Search memories within one space.', {
+    ...recallSchema,
   }, async (input) => {
-    try { return result(memory.recall(input)); } catch (error) { return failure(error); }
+    try { return result(runtime ? await runtime.recall(input as RuntimeQueryInput) : memory.recall(input as QueryInput)); } catch (error) { return failure(error); }
   });
 
   server.tool('memory_correct', 'Correct a memory while preserving its history.', {
     space_id: z.string().min(1), memory_id: z.string().min(1), replacement: memoryItem,
     evidence, expected_updated_at: z.string().optional(),
   }, async (input) => {
-    try { return result(memory.correct(input)); } catch (error) { return failure(error); }
+    try { return result(runtime ? runtime.correct(input) : memory.correct(input)); } catch (error) { return failure(error); }
   });
 
   server.tool('memory_forget', 'Logically delete a memory from future recall.', {
     space_id: z.string().min(1), memory_id: z.string().min(1),
   }, async (input) => {
-    try { return result(memory.forget(input)); } catch (error) { return failure(error); }
+    try { return result(runtime ? runtime.forget(input) : memory.forget(input)); } catch (error) { return failure(error); }
   });
 
   server.tool('memory_explain', 'Explain why a memory appears in a recall result.', {
@@ -73,13 +79,29 @@ export function createMcpServer(memory: Memory): McpServer {
     try { return result(memory.timeline(input)); } catch (error) { return failure(error); }
   });
 
+  if (runtime) {
+    server.tool('memory_index', 'Queue and process memory embeddings.', {
+      space_id: z.string().min(1).optional(), retry: z.boolean().optional(),
+    }, async (input) => {
+      try { return result(await runtime.index(input)); } catch (error) { return failure(error); }
+    });
+    server.tool('memory_suggest', 'Suggest possible entity matches for an unresolved mention.', {
+      space_id: z.string().min(1), memory_id: z.string().min(1), entity_ids: z.array(z.string()).optional(),
+    }, async (input) => {
+      try { return result(await runtime.suggestMention(input)); } catch (error) { return failure(error); }
+    });
+  }
+
   return server;
 }
 
 /** Run the MCP stdio transport. Protocol traffic is the only stdout output. */
-export async function runMcp(path = './memory.db'): Promise<void> {
+export async function runMcp(path = './memory.db', runtimeOptions?: RuntimeEnvOptions): Promise<void> {
   const memory = new Memory(path);
-  const server = createMcpServer(memory);
+  const runtime = runtimeOptions?.provider && runtimeOptions.provider !== 'none'
+    ? createRuntimeFromEnv(memory, runtimeOptions)
+    : undefined;
+  const server = createMcpServer(memory, runtime);
   const transport = new StdioServerTransport();
   const keepAlive = setInterval(() => undefined, 60_000);
   let stop: () => void = () => undefined;

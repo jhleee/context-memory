@@ -1,0 +1,1086 @@
+{
+  "date": "2026-10-05T06:46:01.712Z",
+  "fixture": "개발 검증용 고정 한국어 합성 데이터. 모델의 일반 성능을 보장하는 벤치마크가 아님.",
+  "models": {
+    "embedding": "nvidia/nemotron-3-embed-1b:free",
+    "dimensions": 2048,
+    "decision": "inception/mercury-decide:free"
+  },
+  "methodology": {
+    "memories": 16,
+    "queries": 12,
+    "query_vectors": "Real OpenRouter query embeddings batched once and reused across modes. Comparison runtimes exclude remote query embedding latency; Decision calls remain live.",
+    "decision_pool": 20,
+    "scope": "Small synthetic development validation; no claim of general model quality."
+  },
+  "indexing": {
+    "queued": 0,
+    "processed": 16,
+    "failed": 0,
+    "ms": 1446
+  },
+  "query_batch_ms": 1193,
+  "cold_hybrid_ms": 569,
+  "results": [
+    {
+      "mode": "lexical",
+      "top1": 0.25,
+      "recall_at_5": 0.25,
+      "mrr_at_5": 0.25,
+      "provider_failures": 0,
+      "p95_runtime_ms": 3,
+      "cases": [
+        {
+          "id": "q_transfer",
+          "query": "누가 물건을 다른 사람에게 넘겼는가?",
+          "expected": [
+            "m_transfer"
+          ],
+          "returned": [],
+          "rank": null,
+          "ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_stack",
+          "query": "사용하는 프로그래밍 언어와 영구 저장 방식",
+          "expected": [
+            "m_stack"
+          ],
+          "returned": [],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_food",
+          "query": "준호에게 맞는 채식 메뉴",
+          "expected": [
+            "m_vegetarian"
+          ],
+          "returned": [
+            "m_vegetarian"
+          ],
+          "rank": 1,
+          "ms": 3,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_deadline",
+          "query": "금요일까지 재무팀으로 보내야 하는 결과물",
+          "expected": [
+            "m_deadline"
+          ],
+          "returned": [],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_outage",
+          "query": "결제가 느려진 장애의 원인",
+          "expected": [
+            "m_outage"
+          ],
+          "returned": [],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_backup",
+          "query": "데이터를 안전하게 복제하고 되살리는 절차",
+          "expected": [
+            "m_backup"
+          ],
+          "returned": [
+            "m_stack"
+          ],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_privacy",
+          "query": "비밀 인증 값을 깃에 노출하지 않는 방법",
+          "expected": [
+            "m_privacy"
+          ],
+          "returned": [
+            "m_privacy"
+          ],
+          "rank": 1,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_meeting",
+          "query": "리아의 도서관 약속",
+          "expected": [
+            "m_meeting"
+          ],
+          "returned": [
+            "m_meeting"
+          ],
+          "rank": 1,
+          "ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_budget",
+          "query": "관리 화면 제작 비용의 상한선",
+          "expected": [
+            "m_budget"
+          ],
+          "returned": [
+            "m_access"
+          ],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_shipping",
+          "query": "배송 지연 기간",
+          "expected": [
+            "m_shipping"
+          ],
+          "returned": [],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_access",
+          "query": "대시보드의 접근 제한과 인증",
+          "expected": [
+            "m_access"
+          ],
+          "returned": [
+            "m_privacy"
+          ],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_handoff",
+          "query": "작업 인수인계를 위한 기록",
+          "expected": [
+            "m_handoff"
+          ],
+          "returned": [],
+          "rank": null,
+          "ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        }
+      ]
+    },
+    {
+      "mode": "hybrid",
+      "top1": 0.75,
+      "recall_at_5": 1,
+      "mrr_at_5": 0.8611111111111112,
+      "provider_failures": 0,
+      "p95_runtime_ms": 10,
+      "cases": [
+        {
+          "id": "q_transfer",
+          "query": "누가 물건을 다른 사람에게 넘겼는가?",
+          "expected": [
+            "m_transfer"
+          ],
+          "returned": [
+            "m_transfer",
+            "m_handoff",
+            "m_shipping",
+            "m_deadline",
+            "m_privacy"
+          ],
+          "rank": 1,
+          "ms": 10,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_stack",
+          "query": "사용하는 프로그래밍 언어와 영구 저장 방식",
+          "expected": [
+            "m_stack"
+          ],
+          "returned": [
+            "m_stack",
+            "m_privacy",
+            "m_backup",
+            "m_access",
+            "d_key"
+          ],
+          "rank": 1,
+          "ms": 5,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_food",
+          "query": "준호에게 맞는 채식 메뉴",
+          "expected": [
+            "m_vegetarian"
+          ],
+          "returned": [
+            "m_vegetarian"
+          ],
+          "rank": 1,
+          "ms": 2,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_deadline",
+          "query": "금요일까지 재무팀으로 보내야 하는 결과물",
+          "expected": [
+            "m_deadline"
+          ],
+          "returned": [
+            "m_deadline",
+            "d_report",
+            "m_handoff",
+            "m_meeting",
+            "m_transfer"
+          ],
+          "rank": 1,
+          "ms": 7,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_outage",
+          "query": "결제가 느려진 장애의 원인",
+          "expected": [
+            "m_outage"
+          ],
+          "returned": [
+            "m_outage",
+            "m_shipping",
+            "m_handoff",
+            "m_deadline",
+            "m_transfer"
+          ],
+          "rank": 1,
+          "ms": 7,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_backup",
+          "query": "데이터를 안전하게 복제하고 되살리는 절차",
+          "expected": [
+            "m_backup"
+          ],
+          "returned": [
+            "m_stack",
+            "m_backup",
+            "m_privacy",
+            "d_food",
+            "m_handoff"
+          ],
+          "rank": 2,
+          "ms": 6,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_privacy",
+          "query": "비밀 인증 값을 깃에 노출하지 않는 방법",
+          "expected": [
+            "m_privacy"
+          ],
+          "returned": [
+            "m_privacy",
+            "m_access",
+            "m_transfer",
+            "d_report",
+            "m_budget"
+          ],
+          "rank": 1,
+          "ms": 6,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_meeting",
+          "query": "리아의 도서관 약속",
+          "expected": [
+            "m_meeting"
+          ],
+          "returned": [
+            "m_meeting"
+          ],
+          "rank": 1,
+          "ms": 1,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_budget",
+          "query": "관리 화면 제작 비용의 상한선",
+          "expected": [
+            "m_budget"
+          ],
+          "returned": [
+            "m_access",
+            "m_budget",
+            "d_money",
+            "m_deadline",
+            "d_key"
+          ],
+          "rank": 2,
+          "ms": 5,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_shipping",
+          "query": "배송 지연 기간",
+          "expected": [
+            "m_shipping"
+          ],
+          "returned": [
+            "m_shipping",
+            "m_outage",
+            "m_meeting",
+            "m_deadline",
+            "m_access"
+          ],
+          "rank": 1,
+          "ms": 5,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_access",
+          "query": "대시보드의 접근 제한과 인증",
+          "expected": [
+            "m_access"
+          ],
+          "returned": [
+            "m_privacy",
+            "m_budget",
+            "m_access",
+            "d_money",
+            "d_key"
+          ],
+          "rank": 3,
+          "ms": 5,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_handoff",
+          "query": "작업 인수인계를 위한 기록",
+          "expected": [
+            "m_handoff"
+          ],
+          "returned": [
+            "m_handoff",
+            "m_deadline",
+            "m_transfer",
+            "d_money",
+            "m_meeting"
+          ],
+          "rank": 1,
+          "ms": 6,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        }
+      ]
+    },
+    {
+      "mode": "decision",
+      "top1": 1,
+      "recall_at_5": 1,
+      "mrr_at_5": 1,
+      "provider_failures": 0,
+      "p95_runtime_ms": 1072,
+      "cases": [
+        {
+          "id": "q_transfer",
+          "query": "누가 물건을 다른 사람에게 넘겼는가?",
+          "expected": [
+            "m_transfer"
+          ],
+          "returned": [
+            "m_transfer",
+            "m_deadline",
+            "m_handoff",
+            "m_privacy",
+            "m_backup"
+          ],
+          "rank": 1,
+          "ms": 986,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_stack",
+          "query": "사용하는 프로그래밍 언어와 영구 저장 방식",
+          "expected": [
+            "m_stack"
+          ],
+          "returned": [
+            "m_stack",
+            "m_backup",
+            "m_privacy",
+            "m_outage",
+            "m_handoff"
+          ],
+          "rank": 1,
+          "ms": 1072,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_food",
+          "query": "준호에게 맞는 채식 메뉴",
+          "expected": [
+            "m_vegetarian"
+          ],
+          "returned": [
+            "m_vegetarian"
+          ],
+          "rank": 1,
+          "ms": 339,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_deadline",
+          "query": "금요일까지 재무팀으로 보내야 하는 결과물",
+          "expected": [
+            "m_deadline"
+          ],
+          "returned": [
+            "m_deadline",
+            "d_report",
+            "m_handoff",
+            "m_transfer",
+            "d_food"
+          ],
+          "rank": 1,
+          "ms": 938,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_outage",
+          "query": "결제가 느려진 장애의 원인",
+          "expected": [
+            "m_outage"
+          ],
+          "returned": [
+            "m_outage",
+            "m_shipping",
+            "m_privacy",
+            "m_backup",
+            "m_access"
+          ],
+          "rank": 1,
+          "ms": 1033,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_backup",
+          "query": "데이터를 안전하게 복제하고 되살리는 절차",
+          "expected": [
+            "m_backup"
+          ],
+          "returned": [
+            "m_backup",
+            "m_stack",
+            "m_privacy",
+            "m_handoff",
+            "m_outage"
+          ],
+          "rank": 1,
+          "ms": 1008,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_privacy",
+          "query": "비밀 인증 값을 깃에 노출하지 않는 방법",
+          "expected": [
+            "m_privacy"
+          ],
+          "returned": [
+            "m_privacy",
+            "m_access",
+            "m_handoff",
+            "d_report",
+            "m_transfer"
+          ],
+          "rank": 1,
+          "ms": 956,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_meeting",
+          "query": "리아의 도서관 약속",
+          "expected": [
+            "m_meeting"
+          ],
+          "returned": [
+            "m_meeting"
+          ],
+          "rank": 1,
+          "ms": 255,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_budget",
+          "query": "관리 화면 제작 비용의 상한선",
+          "expected": [
+            "m_budget"
+          ],
+          "returned": [
+            "m_budget",
+            "d_money",
+            "d_report",
+            "m_deadline",
+            "d_food"
+          ],
+          "rank": 1,
+          "ms": 994,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_shipping",
+          "query": "배송 지연 기간",
+          "expected": [
+            "m_shipping"
+          ],
+          "returned": [
+            "m_shipping",
+            "m_outage",
+            "m_deadline",
+            "d_key",
+            "d_money"
+          ],
+          "rank": 1,
+          "ms": 1057,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_access",
+          "query": "대시보드의 접근 제한과 인증",
+          "expected": [
+            "m_access"
+          ],
+          "returned": [
+            "m_access",
+            "m_privacy",
+            "m_budget",
+            "m_transfer",
+            "m_backup"
+          ],
+          "rank": 1,
+          "ms": 979,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "id": "q_handoff",
+          "query": "작업 인수인계를 위한 기록",
+          "expected": [
+            "m_handoff"
+          ],
+          "returned": [
+            "m_handoff",
+            "m_transfer",
+            "m_backup",
+            "m_deadline",
+            "m_meeting"
+          ],
+          "rank": 1,
+          "ms": 951,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        }
+      ]
+    }
+  ],
+  "decisions": {
+    "typed": {
+      "urgent": {
+        "type": "noul",
+        "noul": 0.9982992779067866
+      },
+      "department": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "billing": 0.9995952104006014,
+          "technical": 0.00010886469021805248,
+          "unknown": 0.0002959249091805552
+        },
+        "confidence": 0.9993928156009021
+      },
+      "frustration": {
+        "type": "score",
+        "score": 1.8896168978590473,
+        "legend": {
+          "0": "차분함",
+          "1": "불만",
+          "2": "강한 분노"
+        },
+        "probabilities": {
+          "0": 0.001950295680401631,
+          "1": 0.10648251078014942,
+          "2": 0.8915671935394489
+        },
+        "confidence": 0.8344253467885709
+      }
+    },
+    "choice": {
+      "choice": "lia",
+      "probabilities": {
+        "lia": 0.9993404932344017,
+        "mina": 0.00003319340774610306
+      },
+      "unknownProbability": 0.0006263133578522724,
+      "confidence": 0.9990107398516025
+    },
+    "unknown_choice": {
+      "choice": null,
+      "probabilities": {
+        "lia": 0.00014883086674844618,
+        "mina": 0.00005143457124627893
+      },
+      "unknownProbability": 0.9997997345620052,
+      "confidence": 0.999699601843008
+    },
+    "mention_suggestion": {
+      "memory_id": "mention",
+      "suggestions": [
+        {
+          "id": "lia",
+          "score": 0.9924227593799523,
+          "reason": "OpenRouter noul relevance"
+        },
+        {
+          "id": "mina",
+          "score": 0.0004878571331137393,
+          "reason": "OpenRouter noul relevance"
+        }
+      ],
+      "unresolved": true,
+      "warnings": []
+    }
+  },
+  "invariants": {
+    "space_isolation": true,
+    "read_only_recall": true,
+    "suggestions_do_not_resolve": true,
+    "correction_excludes_old": true,
+    "deletion_removes_vector": true,
+    "replacement_indexed": true
+  },
+  "network": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 1431,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "prompt_tokens": 385,
+      "total_tokens": 385
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 1190,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "prompt_tokens": 132,
+      "total_tokens": 132
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 980,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1065,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 336,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 929,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1025,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1001,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 948,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 252,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 986,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1051,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 974,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 945,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 564,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "prompt_tokens": 11,
+      "total_tokens": 11
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 298,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 249,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 274,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 324,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 494,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "prompt_tokens": 8,
+      "total_tokens": 8
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 657,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "prompt_tokens": 14,
+      "total_tokens": 14
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1016,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "prompt_tokens": null,
+      "total_tokens": null
+    }
+  ],
+  "reported_cost": 0,
+  "missing_cost_metadata": 0
+}

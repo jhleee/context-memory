@@ -4,3 +4,7 @@ dist/
 *.db-wal
 *.db-shm
 coverage/
+.env
+.env.*
+!.env.example
+*.key

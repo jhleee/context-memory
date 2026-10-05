@@ -1,10 +1,10 @@
 # 개발 단계
 
-## 검증 상태 (2026-10-04)
+## 검증 상태 (2026-10-05, Asia/Seoul)
 
-Node.js 24.19.0에서 TypeScript 빌드와 자동 테스트 **29개**가 통과했습니다. 코어 17개, 선택 Provider 7개, HTTP 3개, MCP 2개입니다. MCP는 실제 빌드된 CLI 자식 프로세스와 stdio 통신을 검증했습니다. CLI 데모도 같은 DB에서 두 번 실행했습니다.
+Node.js 24.19.0에서 TypeScript 빌드와 자동 테스트 **57개**가 통과했습니다. 코어 17개, 선택 Provider 7개, Runtime 14개, OpenRouter 11개, HTTP 5개, MCP 3개입니다. 실제 빌드된 MCP CLI 자식 프로세스와 HTTP Adapter에서도 지정한 OpenRouter 모델의 색인·검색·후보 제안을 실증했습니다.
 
-Ollama 연결은 모의 HTTP 서버로 요청·응답 계약과 차원 검증을 확인했습니다. 이 실행 환경에 Ollama와 실제 모델은 설치되어 있지 않아 실제 모델 품질 평가는 수행하지 않았습니다. HTTP 테스트에는 로컬 소켓을 열 수 있는 실행 권한이 필요합니다. 대시보드 화면의 브라우저 시각 검증은 수행하지 않았습니다.
+한국어 고정 합성 데이터 16개와 질의 12개로 어휘·하이브리드·Decision 검색을 비교했습니다. 결과·측정 조건은 [실증 보고서](../evaluation/openrouter-live-report.md)에 있습니다. Ollama는 모의 HTTP 서버로 계약을 검증했으며 실제 로컬 모델 평가는 하지 않았습니다. HTTP 테스트에는 로컬 소켓 권한이 필요합니다. 대시보드 API와 화면 자산은 검증했지만 브라우저 시각 검증은 하지 않았습니다.
 
 ## 1단계: 외부 서비스 없는 최소 작동 런타임
 
@@ -17,26 +17,30 @@ Ollama 연결은 모의 HTTP 서버로 요청·응답 계약과 차원 검증을
 
 규격의 Python 스택은 Node.js + TypeScript + better-sqlite3로 변경합니다. 임베딩 없이 사용하는 기본 런타임은 선택 지능에 의존하지 않습니다.
 
-## 2단계: Jev와 임베딩
+## 2단계: 선택 Decision과 임베딩
 
-구현 기반:
+완료한 기능:
 
 - EmbeddingProvider / VectorIndex / DecisionProvider 계약
 - 로컬 Ollama 임베딩 연결
+- OpenRouter Nemotron 임베딩 및 Mercury Decision 실제 연결
 - SQLite embeddings / jobs, 실패 재시도
+- 임베딩 배치 요청, 변경된 Memory만 색인 작업 등록
 - 삭제·정정·임베딩 처리 경합 시 상태 재검증
 - FTS + Vector의 RRF 순위 병합
-- Decision 후보를 제한하고 사실을 자동 확정하지 않는 검증 함수
+- scoped Vector 필터, 후보 정렬, 설명 trace와 장애 진단
+- typed noul / choice / score, 후보 제안과 명시적 Entity 연결 분리
+- CLI·MCP·HTTP·대시보드에서 검색 모드와 색인 선택
+- 고정 한국어 데이터 평가와 실제 Adapter 실행
 
-완료 전에 필요한 작업:
+확장 시 필요한 작업:
 
-- Jev 프로젝트 식별 및 실제 Adapter 구현
-- 실제 로컬 모델 설치 후 한국어 검색 평가
-- 한국어 평가 데이터의 Recall@k, 순위 품질, 잘못된 Entity 후보, p95 측정
-- MCP·HTTP에서 의미 검색을 선택하는 설정
+- 실제 사용자 데이터 평가와 후보 확률 보정
+- 별도 Jev 제품을 요구한다면 해당 제품의 Adapter 구현
+- 실제 로컬 Ollama 모델 품질 평가
 - 크기·성능 측정 후 sqlite-vec 도입 여부 결정
 
-현재 자동 테스트의 임베딩은 결정적 테스트 Provider입니다. 실제 모델 품질이나 Jev 성능의 증거로 사용하지 않습니다.
+자동 테스트는 모의 Provider를 사용합니다. 실제 OpenRouter 실증은 별도 명령과 보고서로 분리하며, 기본 테스트에 네트워크·키가 필요하지 않습니다.
 
 ## 3단계: Web UI와 운영
 
@@ -45,6 +49,7 @@ Ollama 연결은 모의 HTTP 서버로 요청·응답 계약과 차원 검증을
 - loopback HTTP Adapter, 접근 토큰, Origin 검사
 - 같은 코어를 호출하는 한국어 관리 화면
 - 검색, 출처·trace 확인, timeline, 수동 기록·정정·삭제
+- 검색 모드·Provider 상태·색인·실패 재시도·Mention 후보 제안
 
 이후 구현:
 

@@ -23,11 +23,20 @@ export class SQLiteVectorIndex implements VectorIndex {
     if (!row || hash(row.content) !== metadata.hash) return;
     this.memory.db.prepare('INSERT OR REPLACE INTO embeddings VALUES (?,?,?,?,?)').run(memory_id, metadata.model, this.dimensions, metadata.hash, JSON.stringify(vector));
   }
-  search(vector: number[], input: { space_id: string; model: string; limit: number }) {
+  search(vector: number[], input: { space_id: string; model: string; limit: number; filters?: QueryInput }) {
     validateVector(vector, this.dimensions);
     if (!Number.isInteger(input.limit)||input.limit<1) throw new Error('Invalid vector search limit');
+    const clauses=["m.space_id=?","m.lifecycle='active'","e.model=?","e.dimensions=?"];
+    const args:unknown[]=[input.space_id,input.model,this.dimensions];
+    const filters=input.filters;
+    if(filters?.kind){clauses.push('m.kind=?');args.push(filters.kind);}
+    if(filters?.from){clauses.push('COALESCE(m.occurred_at,m.created_at)>=?');args.push(new Date(filters.from).toISOString());}
+    if(filters?.to){clauses.push('COALESCE(m.occurred_at,m.created_at)<=?');args.push(new Date(filters.to).toISOString());}
+    if(filters?.at){clauses.push('(m.valid_from IS NULL OR m.valid_from<=?) AND (m.valid_to IS NULL OR m.valid_to>=?)');const at=new Date(filters.at).toISOString();args.push(at,at);}
+    if(filters?.entity_id){clauses.push(`EXISTS(SELECT 1 FROM links l WHERE l.space_id=m.space_id AND l.active=1 AND ((l.from_type='memory' AND l.from_id=m.id AND l.to_type='entity' AND l.to_id=?) OR (l.to_type='memory' AND l.to_id=m.id AND l.from_type='entity' AND l.from_id=?)))`);args.push(filters.entity_id,filters.entity_id);}
+    if(filters?.candidate_ids){if(!filters.candidate_ids.length)return [];clauses.push(`m.id IN (${filters.candidate_ids.map(()=>'?').join(',')})`);args.push(...filters.candidate_ids);}
     const rows = this.memory.db.prepare(`SELECT e.memory_id,e.vector,e.hash,m.content FROM embeddings e JOIN memories m ON m.id=e.memory_id
-      WHERE m.space_id=? AND m.lifecycle='active' AND e.model=? AND e.dimensions=?`).all(input.space_id,input.model,this.dimensions) as {memory_id:string;vector:string;hash:string;content:string}[];
+      WHERE ${clauses.join(' AND ')}`).all(...args) as {memory_id:string;vector:string;hash:string;content:string}[];
     const norm = Math.hypot(...vector);
     return rows.filter(row => row.hash === hash(row.content)).map(row => {
       const stored = JSON.parse(row.vector) as number[];
@@ -49,35 +58,49 @@ export class EmbeddingWorker {
     ) STRICT;`);
   }
   /** Explicit write operation; recall never enqueues work. */
-  enqueue() {
-    const rows = this.memory.db.prepare("SELECT id,content FROM memories WHERE lifecycle='active'").all() as {id:string;content:string}[];
+  enqueue(input: { space_id?: string; memory_ids?: string[] } = {}) {
+    const clauses=["lifecycle='active'"],args:unknown[]=[];
+    if(input.space_id){clauses.push('space_id=?');args.push(input.space_id);}
+    if(input.memory_ids){if(!input.memory_ids.length)return 0;clauses.push(`id IN (${input.memory_ids.map(()=>'?').join(',')})`);args.push(...input.memory_ids);}
+    const rows = this.memory.db.prepare(`SELECT id,content FROM memories WHERE ${clauses.join(' AND ')}`).all(...args) as {id:string;content:string}[];
     return this.memory.db.transaction(()=> {
       let added=0;
-      for (const row of rows) added+=this.memory.db.prepare("INSERT OR IGNORE INTO jobs(memory_id,model,hash,state) VALUES(?,?,?,'pending')").run(row.id,this.provider.model,hash(row.content)).changes;
+      for (const row of rows) {
+        const fingerprint=hash(row.content);
+        const hasEmbeddings=!!this.memory.db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='embeddings'").get();
+        const existing=hasEmbeddings?this.memory.db.prepare('SELECT hash,dimensions FROM embeddings WHERE memory_id=? AND model=?').get(row.id,this.provider.model) as {hash:string;dimensions:number}|undefined:undefined;
+        if(existing?.hash===fingerprint&&existing.dimensions===this.provider.dimensions)continue;
+        added+=this.memory.db.prepare("INSERT INTO jobs(memory_id,model,hash,state) VALUES(?,?,?,'pending') ON CONFLICT(memory_id,model,hash) DO UPDATE SET state='pending',error=NULL WHERE jobs.state='done'").run(row.id,this.provider.model,fingerprint).changes;
+      }
       return added;
     })();
   }
-  retryFailed() { return this.memory.db.prepare("UPDATE jobs SET state='pending',error=NULL WHERE model=? AND state='failed'").run(this.provider.model).changes; }
-  async runOnce(limit=16) {
+  retryFailed(space_id?:string) { return this.memory.db.prepare(`UPDATE jobs SET state='pending',error=NULL WHERE model=? AND state='failed'${space_id?' AND memory_id IN (SELECT id FROM memories WHERE space_id=?)':''}`).run(this.provider.model,...(space_id?[space_id]:[])).changes; }
+  async runOnce(limit=16,space_id?:string) {
     if (!Number.isInteger(limit)||limit<1||limit>1000) throw new Error('Invalid worker batch limit');
     if (this.busy) throw new Error('Worker is already running');
     this.busy=true;
     try {
-      const jobs=this.memory.db.prepare("SELECT * FROM jobs WHERE model=? AND state='pending' ORDER BY id LIMIT ?").all(this.provider.model,limit) as {id:number;memory_id:string;hash:string}[];
+      const jobs=this.memory.db.prepare(`SELECT * FROM jobs WHERE model=? AND state='pending'${space_id?' AND memory_id IN (SELECT id FROM memories WHERE space_id=?)':''} ORDER BY id LIMIT ?`).all(this.provider.model,...(space_id?[space_id]:[]),limit) as {id:number;memory_id:string;hash:string}[];
+      const valid:{job:typeof jobs[number];content:string}[]=[];
       for (const job of jobs) {
         const row=this.memory.db.prepare("SELECT content FROM memories WHERE id=? AND lifecycle='active'").get(job.memory_id) as {content:string}|undefined;
         if (!row || hash(row.content)!==job.hash) { this.memory.db.prepare("UPDATE jobs SET state='done' WHERE id=?").run(job.id); continue; }
-        try {
-          const vectors=await this.provider.embed([row.content]);
-          if (vectors.length!==1) throw new Error('Embedding batch size mismatch');
-          validateVector(vectors[0],this.provider.dimensions);
-          this.memory.db.transaction(()=> {
-            this.index.add(job.memory_id,vectors[0],{model:this.provider.model,hash:job.hash});
+        valid.push({job,content:row.content});
+      }
+      if(valid.length)try {
+        const vectors=await this.provider.embed(valid.map(row=>row.content));
+        if(vectors.length!==valid.length)throw new Error('Embedding batch size mismatch');
+        vectors.forEach(vector=>validateVector(vector,this.provider.dimensions));
+        this.memory.db.transaction(()=> {
+          valid.forEach(({job},i)=>{
+            this.index.add(job.memory_id,vectors[i],{model:this.provider.model,hash:job.hash});
             this.memory.db.prepare("UPDATE jobs SET state='done',attempts=attempts+1,error=NULL WHERE id=?").run(job.id);
-          })();
-        } catch (error) {
-          this.memory.db.prepare("UPDATE jobs SET state='failed',attempts=attempts+1,error=? WHERE id=?").run(error instanceof Error?error.message:'Embedding failed',job.id);
-        }
+          });
+        })();
+      } catch {
+        // Provider messages may include credentials; persisted failures use a fixed safe message.
+        this.memory.db.transaction(()=>{for(const {job} of valid)this.memory.db.prepare("UPDATE jobs SET state='failed',attempts=attempts+1,error=? WHERE id=?").run('Embedding provider request failed',job.id);})();
       }
       return jobs.length;
     } finally { this.busy=false; }
@@ -114,12 +137,12 @@ export async function suggestSafely(provider:DecisionProvider,question:string,ca
 }
 
 /** Opt-in semantic recall. Provider failures fall back to the read-only core. */
-export async function hybridRecall(memory:Memory,input:QueryInput,provider:EmbeddingProvider,index:VectorIndex):Promise<RecallResult> {
+export async function hybridRecall(memory:Memory,input:QueryInput,provider:EmbeddingProvider,index:VectorIndex,options?:{onError?:(error:unknown)=>void}):Promise<RecallResult> {
   const lexical=memory.recall(input);
   if (!input.query) return lexical;
   try {
     const [vector]=await provider.embed([input.query]);
-    const hits=index.search(vector,{space_id:input.space_id,model:provider.model,limit:200});
+    const hits=index.search(vector,{space_id:input.space_id,model:provider.model,limit:200,filters:input});
     // Core revalidates all filters before a vector candidate can enter the result.
     const eligible=memory.recall({...input,query:undefined,candidate_ids:hits.map(hit=>hit.memory_id),limit:200,max_chars:1_000_000});
     const eligibleMap=new Map(eligible.items.map(item=>[item.id,item]));
@@ -146,5 +169,5 @@ export async function hybridRecall(memory:Memory,input:QueryInput,provider:Embed
     });
     const sources=[...sourceMap.values()].filter(source=>countedSources.has(source.id));
     return {items,current:[...new Set([...lexical.current,...eligible.current])].filter(id=>ids.has(id)),recent:[...new Set([...lexical.recent,...eligible.recent])].filter(id=>ids.has(id)),related:items.map(i=>i.id),unresolved:items.filter(i=>i.resolution==='unresolved').map(i=>i.id),sources,traces,truncated:ranked.length>items.length};
-  } catch {return lexical;}
+  } catch(error) {options?.onError?.(error);return lexical;}
 }
