@@ -3,7 +3,7 @@
   "type": "module", "engines": { "node": ">=22" },
   "exports": { ".": "./dist/src/index.js" },
   "bin": { "context-memory": "./dist/src/cli.js" },
-  "scripts": { "build": "tsc && cp src/dashboard.html dist/src/dashboard.html", "typecheck": "tsc --noEmit", "pretest": "npm run build", "test": "vitest run", "demo": "tsx src/cli.ts demo", "mcp": "tsx src/cli.ts mcp", "dashboard": "tsx src/cli.ts serve", "embed": "tsx src/cli.ts embed", "evaluate": "tsx scripts/evaluate-openrouter.ts", "smoke:openrouter": "npm run build && tsx scripts/smoke-openrouter.ts", "benchmark:gameplay": "tsx scripts/benchmark-gameplay.ts" },
+  "scripts": { "build": "tsc && cp src/dashboard.html dist/src/dashboard.html", "typecheck": "tsc --noEmit", "pretest": "npm run build", "test": "vitest run", "demo": "tsx src/cli.ts demo", "mcp": "tsx src/cli.ts mcp", "dashboard": "tsx src/cli.ts serve", "embed": "tsx src/cli.ts embed", "evaluate": "tsx scripts/evaluate-openrouter.ts", "smoke:openrouter": "npm run build && tsx scripts/smoke-openrouter.ts", "benchmark:gameplay": "tsx scripts/benchmark-gameplay.ts", "benchmark:world": "tsx scripts/benchmark-world-stress.ts", "benchmark:context": "tsx scripts/benchmark-world-context.ts" },
   "dependencies": { "better-sqlite3": "^12.0.0", "zod": "^3.25.0", "@modelcontextprotocol/sdk": "^1.0.0" },
   "devDependencies": { "typescript": "^5.9.0", "@types/node": "^24.0.0", "@types/better-sqlite3": "^7.6.0", "vitest": "^3.2.0", "tsx": "^4.20.0" }
 }

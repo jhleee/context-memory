@@ -2,7 +2,7 @@
 
 ## 검증 상태 (2026-10-05, Asia/Seoul)
 
-Node.js 24.19.0에서 TypeScript 빌드와 자동 테스트 **69개**가 통과했습니다. 코어 17개, 선택 Provider 7개, Runtime 14개, OpenRouter 11개, HTTP 5개, MCP 3개, 게임 벤치마크·Entity 생명주기 12개입니다. 실제 빌드된 MCP CLI 자식 프로세스와 HTTP Adapter에서도 지정한 OpenRouter 모델의 색인·검색·후보 제안을 실증했습니다.
+Node.js 24.19.0에서 TypeScript 빌드와 자동 테스트 **75개**가 통과했습니다. 코어 17개, 선택 Provider 7개, Runtime 14개, OpenRouter 11개, HTTP 5개, MCP 3개, 게임 벤치마크·Entity 생명주기 12개, 대형 월드·문맥 제어 6개입니다. 실제 빌드된 MCP CLI 자식 프로세스와 HTTP Adapter에서도 지정한 OpenRouter 모델의 색인·검색·후보 제안을 실증했습니다.
 
 한국어 고정 합성 데이터 16개와 질의 12개로 어휘·하이브리드·Decision 검색을 비교했습니다. 결과·측정 조건은 [실증 보고서](../evaluation/openrouter-live-report.md)에 있습니다. Ollama는 모의 HTTP 서버로 계약을 검증했으며 실제 로컬 모델 평가는 하지 않았습니다. HTTP 테스트에는 로컬 소켓 권한이 필요합니다. 대시보드 API와 화면 자산은 검증했지만 브라우저 시각 검증은 하지 않았습니다.
 
@@ -78,3 +78,5 @@ Node.js 24.19.0에서 TypeScript 빌드와 자동 테스트 **69개**가 통과�
 기본 FTS는 SQLite unicode61 토크나이저를 사용합니다. 한국어 조사·띄어쓰기 변화와 의미 유사도를 완전히 처리하지 않습니다. 시간 모델은 valid interval과 사건·기록 시간이며 고급 bitemporal 모델은 포함하지 않습니다. HTTP는 로컬 관리용이며 다중 사용자 인증 제품이 아닙니다. 기본 삭제는 Evidence를 보존합니다.
 
 게임 관계도 벤치마크는 [별도 보고서](../evaluation/gameplay-benchmark-report.md)에 5회차·27개 질문·6개 인물 판별의 실측을 기록했습니다. 실제 모델의 최종 38회 호출은 모두 성공했고 인물 판별은 6/6 정답입니다. 다단계 방향성 경로 API와 인과 답변 생성은 아직 구현하지 않았습니다.
+
+[대형 월드 실험](../evaluation/world-stress-report.md)은 4,096개 기억의 규모·문맥 예산 비교와 후보 발견 병목을 기록했습니다. 32k 문자 Decision 시험은 통과했고 64k/96k는 서비스가 HTTP 422로 거절했습니다. 방향성 다단계 경로 검색과 Entity 후보 검색을 다음 개선 대상으로 구체화했습니다.

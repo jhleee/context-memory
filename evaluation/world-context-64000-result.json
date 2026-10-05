@@ -1,0 +1,302 @@
+{
+  "schema": "context-memory.world-context-benchmark.v1",
+  "created_at": "2026-10-05T09:00:44.650Z",
+  "configured_model": "inception/mercury-decide:free",
+  "characters": 64000,
+  "seed": 20261005,
+  "pacing_ms": 3500,
+  "timeout_ms": 90000,
+  "manifest": [
+    {
+      "id": "9c366edcb13c47a1b5cb708dd2558d411210e5550863cfe4ace8a8b8d14e6721",
+      "expected_answers": {
+        "root_cause": "c0",
+        "identity": "c0",
+        "unknown_agent": "c3"
+      },
+      "metadata": {
+        "actual_characters": 64000,
+        "core_characters": 1876,
+        "core_offset": 0,
+        "characters": 64000,
+        "position": "start",
+        "seed": 20261005,
+        "core_hash": "269b613d33450eb00b1f5fc0579e8141d751b13c7da1262b5ce1f53b178cb28f",
+        "padding_hash": "434db814fca8bb25ee1c5be033bb95293dbac14cc95a83d0991d49d5518783a4"
+      },
+      "questions": [
+        {
+          "key": "root_cause",
+          "type": "choice",
+          "instructions": "For the specified 4월18일 19:40 reverse-flow event, identify the earliest initiating physical cause of the water-flow chain, rather than a later enabling brake condition. Trace the recorded sequence; distinguish simulations or other dates.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "동쪽 제련소 굴뚝 이음부의 균열.",
+            "c1": "감시실 파란 유리 경보 렌즈 안쪽의 안개 응결.",
+            "c2": "다른 날짜 서쪽 구역의 펌프 수동 점검.",
+            "c3": "기록만으로 특정할 수 없는 원인."
+          }
+        },
+        {
+          "key": "identity",
+          "type": "choice",
+          "instructions": "Identify who repaired the blue-glass compass using the records. Do not merge similar names.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "윤서린 — 남쪽 초소 지도 제작 기록관.",
+            "c1": "윤수린 — 북쪽 초소 기상 관측원.",
+            "c2": "류해온 — 서쪽 나루 조타수.",
+            "c3": "미확인 인물."
+          }
+        },
+        {
+          "key": "unknown_agent",
+          "type": "choice",
+          "instructions": "Resolve the identity of the black-gloved courier only if the records provide identity evidence. Clothing alone is not a unique identity proof; otherwise choose the insufficient-evidence option.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "윤서린 — 남쪽 초소 지도 제작 기록관.",
+            "c1": "윤수린 — 북쪽 초소 기상 관측원.",
+            "c2": "류해온 — 서쪽 나루 조타수.",
+            "c3": "미확인 인물 — 제시된 신원 선택지 중 기록으로 입증되는 사람이 없음."
+          }
+        }
+      ]
+    },
+    {
+      "id": "120348c86c8f6ef14fbe2ca8f34557d0d2b552fa6e051187a5fa5fdbad89f9cf",
+      "expected_answers": {
+        "root_cause": "c0",
+        "identity": "c0",
+        "unknown_agent": "c3"
+      },
+      "metadata": {
+        "actual_characters": 64000,
+        "core_characters": 1876,
+        "core_offset": 31062,
+        "characters": 64000,
+        "position": "middle",
+        "seed": 20261005,
+        "core_hash": "269b613d33450eb00b1f5fc0579e8141d751b13c7da1262b5ce1f53b178cb28f",
+        "padding_hash": "434db814fca8bb25ee1c5be033bb95293dbac14cc95a83d0991d49d5518783a4"
+      },
+      "questions": [
+        {
+          "key": "root_cause",
+          "type": "choice",
+          "instructions": "For the specified 4월18일 19:40 reverse-flow event, identify the earliest initiating physical cause of the water-flow chain, rather than a later enabling brake condition. Trace the recorded sequence; distinguish simulations or other dates.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "동쪽 제련소 굴뚝 이음부의 균열.",
+            "c1": "감시실 파란 유리 경보 렌즈 안쪽의 안개 응결.",
+            "c2": "다른 날짜 서쪽 구역의 펌프 수동 점검.",
+            "c3": "기록만으로 특정할 수 없는 원인."
+          }
+        },
+        {
+          "key": "identity",
+          "type": "choice",
+          "instructions": "Identify who repaired the blue-glass compass using the records. Do not merge similar names.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "윤서린 — 남쪽 초소 지도 제작 기록관.",
+            "c1": "윤수린 — 북쪽 초소 기상 관측원.",
+            "c2": "류해온 — 서쪽 나루 조타수.",
+            "c3": "미확인 인물."
+          }
+        },
+        {
+          "key": "unknown_agent",
+          "type": "choice",
+          "instructions": "Resolve the identity of the black-gloved courier only if the records provide identity evidence. Clothing alone is not a unique identity proof; otherwise choose the insufficient-evidence option.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "윤서린 — 남쪽 초소 지도 제작 기록관.",
+            "c1": "윤수린 — 북쪽 초소 기상 관측원.",
+            "c2": "류해온 — 서쪽 나루 조타수.",
+            "c3": "미확인 인물 — 제시된 신원 선택지 중 기록으로 입증되는 사람이 없음."
+          }
+        }
+      ]
+    },
+    {
+      "id": "b9d6c0d98fb020718f7b17796381864ea03a4b3c6045bd23a9957c9648c9699c",
+      "expected_answers": {
+        "root_cause": "c0",
+        "identity": "c0",
+        "unknown_agent": "c3"
+      },
+      "metadata": {
+        "actual_characters": 64000,
+        "core_characters": 1876,
+        "core_offset": 62124,
+        "characters": 64000,
+        "position": "end",
+        "seed": 20261005,
+        "core_hash": "269b613d33450eb00b1f5fc0579e8141d751b13c7da1262b5ce1f53b178cb28f",
+        "padding_hash": "434db814fca8bb25ee1c5be033bb95293dbac14cc95a83d0991d49d5518783a4"
+      },
+      "questions": [
+        {
+          "key": "root_cause",
+          "type": "choice",
+          "instructions": "For the specified 4월18일 19:40 reverse-flow event, identify the earliest initiating physical cause of the water-flow chain, rather than a later enabling brake condition. Trace the recorded sequence; distinguish simulations or other dates.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "동쪽 제련소 굴뚝 이음부의 균열.",
+            "c1": "감시실 파란 유리 경보 렌즈 안쪽의 안개 응결.",
+            "c2": "다른 날짜 서쪽 구역의 펌프 수동 점검.",
+            "c3": "기록만으로 특정할 수 없는 원인."
+          }
+        },
+        {
+          "key": "identity",
+          "type": "choice",
+          "instructions": "Identify who repaired the blue-glass compass using the records. Do not merge similar names.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "윤서린 — 남쪽 초소 지도 제작 기록관.",
+            "c1": "윤수린 — 북쪽 초소 기상 관측원.",
+            "c2": "류해온 — 서쪽 나루 조타수.",
+            "c3": "미확인 인물."
+          }
+        },
+        {
+          "key": "unknown_agent",
+          "type": "choice",
+          "instructions": "Resolve the identity of the black-gloved courier only if the records provide identity evidence. Clothing alone is not a unique identity proof; otherwise choose the insufficient-evidence option.",
+          "options": [
+            "c0",
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "criteria": {
+            "c0": "윤서린 — 남쪽 초소 지도 제작 기록관.",
+            "c1": "윤수린 — 북쪽 초소 기상 관측원.",
+            "c2": "류해온 — 서쪽 나루 조타수.",
+            "c3": "미확인 인물 — 제시된 신원 선택지 중 기록으로 입증되는 사람이 없음."
+          }
+        }
+      ]
+    }
+  ],
+  "calls": [
+    {
+      "probe_id": "9c366edcb13c47a1b5cb708dd2558d411210e5550863cfe4ace8a8b8d14e6721",
+      "position": "start",
+      "telemetry": {
+        "status": 422,
+        "latency_ms": 653,
+        "model": "inception/mercury-decide:free",
+        "cost": null
+      },
+      "status": 422,
+      "unevaluated": true,
+      "error_kind": "http_error",
+      "choices": null,
+      "matches": null,
+      "evaluated": false
+    },
+    {
+      "probe_id": "120348c86c8f6ef14fbe2ca8f34557d0d2b552fa6e051187a5fa5fdbad89f9cf",
+      "position": "middle",
+      "telemetry": {
+        "status": 422,
+        "latency_ms": 348,
+        "model": "inception/mercury-decide:free",
+        "cost": null
+      },
+      "status": 422,
+      "unevaluated": true,
+      "error_kind": "http_error",
+      "choices": null,
+      "matches": null,
+      "evaluated": false
+    },
+    {
+      "probe_id": "b9d6c0d98fb020718f7b17796381864ea03a4b3c6045bd23a9957c9648c9699c",
+      "position": "end",
+      "telemetry": {
+        "status": 422,
+        "latency_ms": 393,
+        "model": "inception/mercury-decide:free",
+        "cost": null
+      },
+      "status": 422,
+      "unevaluated": true,
+      "error_kind": "http_error",
+      "choices": null,
+      "matches": null,
+      "evaluated": false
+    }
+  ],
+  "network": [
+    {
+      "status": 422,
+      "latency_ms": 653,
+      "model": "inception/mercury-decide:free",
+      "cost": null
+    },
+    {
+      "status": 422,
+      "latency_ms": 348,
+      "model": "inception/mercury-decide:free",
+      "cost": null
+    },
+    {
+      "status": 422,
+      "latency_ms": 393,
+      "model": "inception/mercury-decide:free",
+      "cost": null
+    }
+  ],
+  "status": "service_rejected",
+  "summary": {
+    "calls": 3,
+    "evaluated": 0,
+    "unevaluated": 3,
+    "correct_answers": 0,
+    "total_evaluated_answers": 0
+  }
+}
