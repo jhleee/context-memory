@@ -1,0 +1,5178 @@
+{
+  "date": "2026-10-05T07:34:11.544Z",
+  "title": "검은 항구의 밤 · TRPG 플레이 그래프 벤치마크",
+  "fixture": "gameplay-graph.fixture.json",
+  "live": true,
+  "status": "complete",
+  "embedding_available": true,
+  "seeded": {
+    "records": 8,
+    "memories": 64,
+    "entities": 31,
+    "links": 134,
+    "spaces": 2
+  },
+  "capabilities": {
+    "retrieval_link_expansion_hops": 1,
+    "directed_path_api": false,
+    "automatic_causal_inference": false,
+    "entity_creation": "explicit structured host input; unresolved Mention does not create or merge Entity"
+  },
+  "methodology": {
+    "gold_frozen_before_retrieval": true,
+    "gold_sent_to_provider": false,
+    "context_limit": 20,
+    "max_chars": 12000,
+    "decision_pacing_ms": 3500,
+    "query_vectors": "Live query embeddings batched once and reused; per-query runtime excludes that network latency. Decision requests remain live.",
+    "metrics": "Support recall and stored directed path-node coverage measure evidence retrieval, not causal answer correctness. Minimal-gold precision may count useful extra context as non-gold.",
+    "entity_decisions": "Session snapshots, candidate name/metadata only (production candidate contract). Model chooses existing candidate or unknown; never creates/resolves automatically.",
+    "negative_cases": "Exclusion violations are diagnostic; read-only, Space and lifecycle checks are asserted."
+  },
+  "models": {
+    "embedding": "nvidia/nemotron-3-embed-1b:free",
+    "dimensions": 2048,
+    "decision": "inception/mercury-decide:free"
+  },
+  "indexing": {
+    "queued": 59,
+    "processed": 59,
+    "failed": 0
+  },
+  "query_batch_ms": 1535,
+  "results": [
+    {
+      "mode": "lexical",
+      "provider_comparison_valid": true,
+      "cases": [
+        {
+          "query_id": "q_causal_01",
+          "category": "causal",
+          "support_recall": 0,
+          "support_precision": 0,
+          "first_support_rank": null,
+          "reciprocal_rank": 0,
+          "support_recall_at_5": 0,
+          "top1_support": false,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "폭우에서 서문으로 밀수선이 들어오기까지의 인과 경로를 찾아라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_10"
+          ],
+          "runtime_ms": 4,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_02",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 3,
+          "reciprocal_rank": 0.3333333333333333,
+          "support_recall_at_5": 0.3333333333333333,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "짐수레 지연이 등대 봉화와 경비 순찰에 미친 결과는?",
+          "expected_support_ids": [
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_02",
+            "m_s05_01",
+            "m_s02_01",
+            "m_s03_04",
+            "m_s01_01",
+            "m_s01_05",
+            "m_s04_08",
+            "m_s04_09",
+            "m_s02_02",
+            "m_s01_02",
+            "m_s01_08",
+            "m_s02_09",
+            "m_s03_05",
+            "m_s03_07",
+            "m_s04_05",
+            "m_s05_12",
+            "m_s02_03",
+            "m_s04_10",
+            "m_s02_05",
+            "m_s03_08"
+          ],
+          "runtime_ms": 3,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_03",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.23076923076923078,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "늦은 봉화가 서문 경비 공백을 만든 과정은?",
+          "expected_support_ids": [
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_02",
+            "m_s05_12",
+            "m_s04_02",
+            "m_s03_04",
+            "m_s05_01",
+            "m_s02_01",
+            "m_s01_08",
+            "m_s01_05",
+            "m_s03_09",
+            "m_s05_04",
+            "m_s02_12",
+            "m_s01_11",
+            "m_s04_03"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_04",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.18181818181818182,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "서문 경비 공백이 실제로 어떤 진입 기회를 만들었나?",
+          "expected_support_ids": [
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_01",
+            "m_s04_02",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s01_08",
+            "m_s05_12",
+            "m_s01_11",
+            "m_s02_01",
+            "m_s03_09",
+            "m_s05_04",
+            "m_s04_03"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_05",
+          "category": "causal",
+          "support_recall": 0.2,
+          "support_precision": 0.2,
+          "first_support_rank": 4,
+          "reciprocal_rank": 0.25,
+          "support_recall_at_5": 0.2,
+          "top1_support": false,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "펌프 기름 도난에서 암호표 손실까지의 원인 사슬은?",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_09",
+            "m_s02_03",
+            "m_s02_05",
+            "m_s02_09",
+            "m_s05_03"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_06",
+          "category": "causal",
+          "support_recall": 0,
+          "support_precision": 0,
+          "first_support_rank": null,
+          "reciprocal_rank": 0,
+          "support_recall_at_5": 0,
+          "top1_support": false,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "기름통 유출과 기록실 침수 사이의 인과 경로는?",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_12",
+            "m_s02_04"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_07",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.42857142857142855,
+          "first_support_rank": 3,
+          "reciprocal_rank": 0.3333333333333333,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "수로 침수가 수위표 장부와 암호표에 준 피해는?",
+          "expected_support_ids": [
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_05",
+            "m_s01_09",
+            "m_s04_06",
+            "m_s01_11",
+            "m_s03_02",
+            "m_s04_07",
+            "m_s05_02"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_08",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "은종의 검은 가루가 경보와 시장 침입으로 이어진 경로는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_09",
+            "m_s04_01",
+            "m_s04_03",
+            "m_s02_12",
+            "m_s01_02",
+            "m_s01_05",
+            "m_s02_09",
+            "m_s04_02",
+            "m_s05_04",
+            "m_s05_05",
+            "m_s01_03",
+            "m_s02_03",
+            "m_s01_01",
+            "m_s05_01",
+            "m_s05_07",
+            "m_s04_10",
+            "m_s01_04",
+            "m_s03_11",
+            "m_s04_04",
+            "m_s05_03"
+          ],
+          "runtime_ms": 3,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_09",
+          "category": "causal",
+          "support_recall": 0,
+          "support_precision": 0,
+          "first_support_rank": null,
+          "reciprocal_rank": 0,
+          "support_recall_at_5": 0,
+          "top1_support": false,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "경보 실패 뒤 전령 체포까지 어떤 단계가 있었나?",
+          "expected_support_ids": [
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_02",
+            "m_s02_10",
+            "m_s03_01",
+            "m_s04_06"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_10",
+          "category": "causal",
+          "support_recall": 0.5,
+          "support_precision": 0.10526315789473684,
+          "first_support_rank": 9,
+          "reciprocal_rank": 0.1111111111111111,
+          "support_recall_at_5": 0,
+          "top1_support": false,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 가루 표본에서 전령 체포까지의 전체 경로는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_10",
+            "m_s02_12",
+            "m_s05_11",
+            "m_s01_02",
+            "m_s01_05",
+            "m_s02_03",
+            "m_s02_09",
+            "m_s04_02",
+            "m_s04_03",
+            "m_s03_09",
+            "m_s01_01",
+            "m_s04_01",
+            "m_s05_01",
+            "m_s05_07",
+            "m_s01_04",
+            "m_s03_11",
+            "m_s04_04",
+            "m_s05_03",
+            "m_s02_04"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_11",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.2,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 2,
+          "directed_paths_complete": 2,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "폭우가 서로 다른 운송과 등대 보급 결과를 일으켰는지 확인하라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_02",
+            "m_s01_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_02"
+              ],
+              "relations": [
+                "causes"
+              ]
+            },
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05"
+              ],
+              "relations": [
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s01_05",
+            "m_s01_01",
+            "m_s01_02",
+            "m_s04_08",
+            "m_s04_09",
+            "m_s02_01",
+            "m_s02_03",
+            "m_s02_09",
+            "m_s03_05",
+            "m_s03_07",
+            "m_s04_05",
+            "m_s04_10",
+            "m_s02_05",
+            "m_s03_08",
+            "m_s05_02"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_12",
+          "category": "causal",
+          "support_recall": 0.75,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.75,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "생선 시장에서 붙잡힌 전령에게 일어난 일을 추적하라",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_05",
+            "m_s05_04",
+            "m_s04_03"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_diag_01",
+          "category": "causal",
+          "support_recall": 0.5714285714285714,
+          "support_precision": 0.2222222222222222,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.2857142857142857,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 돛단배의 소형 보트가 항구 안으로 들어온 사건을 찾아라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_01",
+            "m_s05_07",
+            "m_s01_04",
+            "m_s01_02",
+            "m_s01_05",
+            "m_s01_09",
+            "m_s02_09",
+            "m_s04_02",
+            "m_s04_03",
+            "m_s02_03",
+            "m_s03_09",
+            "m_s01_01",
+            "m_s04_01",
+            "m_s04_10",
+            "m_s03_11",
+            "m_s04_04",
+            "m_s05_03",
+            "m_s02_04"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_diag_02",
+          "category": "causal",
+          "support_recall": 0.4,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.4,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "판독 불가가 된 암호표의 원인을 추적하라",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_07",
+            "m_s04_06"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_01",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "안개와 은종이 같이 관측됐으므로 종이 안개를 일으킨 것인가?",
+          "expected_support_ids": [
+            "m_s01_03"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_03"
+          ],
+          "runtime_ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_02",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "잠수부가 수문을 열었다고 입증됐나?",
+          "expected_support_ids": [
+            "m_correct_02"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_correct_02"
+          ],
+          "runtime_ms": 0,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_03",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.1111111111111111,
+          "first_support_rank": 2,
+          "reciprocal_rank": 0.5,
+          "support_recall_at_5": 1,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "붉은 물결 조합이 등대 약품을 훔쳤나?",
+          "expected_support_ids": [
+            "m_s04_08",
+            "m_s04_09"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_09",
+            "m_s04_09",
+            "m_s04_08",
+            "m_s01_01",
+            "m_s01_05",
+            "m_s01_02",
+            "m_s02_01",
+            "m_s02_06",
+            "m_s02_09",
+            "m_s03_05",
+            "m_s03_07",
+            "m_s04_05",
+            "m_s03_12",
+            "m_s02_03",
+            "m_s04_10",
+            "m_s02_05",
+            "m_s03_08",
+            "m_s05_02"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_04",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.5,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "게시판 암호 노출 기억을 다시 검색해 보안 위험을 그대로 반환하나?",
+          "expected_support_ids": [
+            "m_s05_08"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_08",
+            "m_s05_12"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_01",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 0.6666666666666666,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "후드를 쓴 사람은 누구인가?",
+          "expected_support_ids": [
+            "m_s03_05",
+            "m_s05_02"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s03_05",
+            "m_s05_02",
+            "m_s05_03"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_02",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 가루를 바른 인물의 신원은 어떻게 확인됐나?",
+          "expected_support_ids": [
+            "m_s03_05",
+            "m_s05_02",
+            "m_s05_03"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_03",
+            "m_s03_05",
+            "m_s05_02"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_03",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 0.75,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "세관 서기 도윤과 부두 노동자 도윤을 구분하라",
+          "expected_support_ids": [
+            "m_s01_04",
+            "m_s05_06",
+            "m_s05_07"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_07",
+            "m_s01_04",
+            "m_s05_06",
+            "m_correct_01"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_01",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.3333333333333333,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "나리와 서기 도윤은 어떤 사건에서 함께 언급되나?",
+          "expected_support_ids": [
+            "m_s01_04",
+            "m_correct_01"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_04",
+            "m_correct_01",
+            "m_s01_02",
+            "m_s01_11",
+            "m_s05_08",
+            "m_s05_12"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_02",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.5714285714285714,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.5,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "은종과 경비대의 관계, 고장 결과는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_01",
+            "m_s04_03",
+            "m_s05_09"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s01_03",
+            "m_s01_12",
+            "m_s03_06",
+            "m_s04_01",
+            "m_s05_09"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_03",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.8,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "조사관 백과 서기 지수는 봉인 기록을 어떻게 다뤘나?",
+          "expected_support_ids": [
+            "m_s02_07",
+            "m_s02_08",
+            "m_s02_11",
+            "m_s05_06"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s02_08",
+            "m_s02_07",
+            "m_s05_02",
+            "m_s02_11",
+            "m_s05_06"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_temporal_01",
+          "category": "temporal",
+          "support_recall": 0,
+          "support_precision": 0,
+          "first_support_rank": null,
+          "reciprocal_rank": 0,
+          "support_recall_at_5": 0,
+          "top1_support": false,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "2월 1일부터 2월 5일까지 서문과 봉화에 관한 기록을 시간순으로 찾아라",
+          "expected_support_ids": [
+            "m_s01_08",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s02_07"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_temporal_02",
+          "category": "temporal",
+          "support_recall": 0.6666666666666666,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "2월 3일부터 2월 4일까지 침수와 장부 손상이 어떻게 진행됐나?",
+          "expected_support_ids": [
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_07",
+            "m_s04_06"
+          ],
+          "runtime_ms": 1,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_05",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.16666666666666666,
+          "first_support_rank": 4,
+          "reciprocal_rank": 0.25,
+          "support_recall_at_5": 1,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "평행 캠페인의 대상단장 나리를 검은 항구 조사관 나리의 기억으로 섞지 말라",
+          "expected_support_ids": [
+            "m_s01_11"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_04",
+            "m_correct_01",
+            "m_s01_02",
+            "m_s01_11",
+            "m_s05_08",
+            "m_s05_12"
+          ],
+          "runtime_ms": 2,
+          "retrieval": {
+            "requested": "lexical",
+            "used": "lexical",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        }
+      ],
+      "support_recall": 0.7440035273368607,
+      "support_recall_at_5": 0.6470017636684303,
+      "mrr": 0.6954732510288066,
+      "top1_support": 0.6296296296296297,
+      "minimal_gold_precision": 0.4358463174252648,
+      "support_complete": 17,
+      "path_node_coverage_complete": 7,
+      "path_count": 15,
+      "scoped_active": true,
+      "exclusion_violations": 0,
+      "p95_runtime_ms": 3,
+      "provider_failures": 0,
+      "categories": {
+        "causal": {
+          "cases": 14,
+          "support_recall": 0.601530612244898,
+          "support_recall_at_5": 0.4501700680272109,
+          "mrr": 0.5734126984126985,
+          "top1_support": 0.5,
+          "minimal_gold_precision": 0.2763317300911286,
+          "support_complete": 6,
+          "path_node_coverage_complete": 7,
+          "path_count": 15,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "negative": {
+          "cases": 5,
+          "support_recall": 1,
+          "support_recall_at_5": 1,
+          "mrr": 0.75,
+          "top1_support": 0.6,
+          "minimal_gold_precision": 0.5555555555555556,
+          "support_complete": 5,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "identity": {
+          "cases": 3,
+          "support_recall": 1,
+          "support_recall_at_5": 1,
+          "mrr": 1,
+          "top1_support": 1,
+          "minimal_gold_precision": 0.8055555555555555,
+          "support_complete": 3,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "relationship": {
+          "cases": 3,
+          "support_recall": 1,
+          "support_recall_at_5": 0.8333333333333334,
+          "mrr": 1,
+          "top1_support": 1,
+          "minimal_gold_precision": 0.5682539682539682,
+          "support_complete": 3,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "temporal": {
+          "cases": 2,
+          "support_recall": 0.3333333333333333,
+          "support_recall_at_5": 0.3333333333333333,
+          "mrr": 0.5,
+          "top1_support": 0.5,
+          "minimal_gold_precision": 0.5,
+          "support_complete": 0,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        }
+      }
+    },
+    {
+      "mode": "hybrid",
+      "provider_comparison_valid": true,
+      "cases": [
+        {
+          "query_id": "q_causal_01",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.35,
+          "first_support_rank": 2,
+          "reciprocal_rank": 0.5,
+          "support_recall_at_5": 0.2857142857142857,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "폭우에서 서문으로 밀수선이 들어오기까지의 인과 경로를 찾아라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_10",
+            "m_s01_05",
+            "m_s01_01",
+            "m_s01_02",
+            "m_s05_04",
+            "m_s05_10",
+            "m_s02_10",
+            "m_s04_05",
+            "m_s05_01",
+            "m_s05_05",
+            "m_s02_02",
+            "m_s02_01",
+            "m_s04_02",
+            "m_s02_06",
+            "m_s05_12",
+            "m_s03_04",
+            "m_s04_03",
+            "m_s03_05",
+            "m_s04_11",
+            "m_correct_02"
+          ],
+          "runtime_ms": 32,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_02",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "짐수레 지연이 등대 봉화와 경비 순찰에 미친 결과는?",
+          "expected_support_ids": [
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_01",
+            "m_s04_02",
+            "m_s03_04",
+            "m_s02_02",
+            "m_s01_05",
+            "m_s05_01",
+            "m_s01_02",
+            "m_s01_01",
+            "m_s04_09",
+            "m_s05_12",
+            "m_s02_05",
+            "m_s04_08",
+            "m_s03_05",
+            "m_s02_03",
+            "m_s03_08",
+            "m_s04_10",
+            "m_s04_05",
+            "m_s02_09",
+            "m_s01_08",
+            "m_s03_07"
+          ],
+          "runtime_ms": 24,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_03",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "늦은 봉화가 서문 경비 공백을 만든 과정은?",
+          "expected_support_ids": [
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_02",
+            "m_s04_02",
+            "m_s05_12",
+            "m_s03_04",
+            "m_s05_01",
+            "m_s02_01",
+            "m_s02_12",
+            "m_s01_08",
+            "m_s01_05",
+            "m_s04_03",
+            "m_s03_09",
+            "m_s01_11",
+            "m_s05_04",
+            "m_s02_08",
+            "m_s04_05",
+            "m_s02_11",
+            "m_correct_02",
+            "m_s05_06",
+            "m_s04_09",
+            "m_s02_07"
+          ],
+          "runtime_ms": 20,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_04",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "서문 경비 공백이 실제로 어떤 진입 기회를 만들었나?",
+          "expected_support_ids": [
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_01",
+            "m_s04_02",
+            "m_s02_02",
+            "m_s05_12",
+            "m_s03_04",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s01_08",
+            "m_s01_11",
+            "m_s03_09",
+            "m_s02_01",
+            "m_correct_02",
+            "m_s03_05",
+            "m_s02_12",
+            "m_s04_09",
+            "m_s04_05",
+            "m_s01_07",
+            "m_s05_08",
+            "m_s05_06",
+            "m_s01_01"
+          ],
+          "runtime_ms": 23,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_05",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.25,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.2,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "펌프 기름 도난에서 암호표 손실까지의 원인 사슬은?",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_09",
+            "m_s02_05",
+            "m_s05_03",
+            "m_s05_09",
+            "m_s02_03",
+            "m_s03_01",
+            "m_s05_08",
+            "m_s04_07",
+            "m_s03_02",
+            "m_s04_09",
+            "m_s04_06",
+            "m_s02_04",
+            "m_s01_09",
+            "m_s03_04",
+            "m_s03_10",
+            "m_s05_05",
+            "m_s02_12",
+            "m_s04_03",
+            "m_s02_08",
+            "m_s02_07"
+          ],
+          "runtime_ms": 25,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_06",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.2,
+          "first_support_rank": 3,
+          "reciprocal_rank": 0.3333333333333333,
+          "support_recall_at_5": 0.5,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "기름통 유출과 기록실 침수 사이의 인과 경로는?",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_04",
+            "m_s02_12",
+            "m_s04_06",
+            "m_s02_05",
+            "m_s02_09",
+            "m_s03_07",
+            "m_s01_09",
+            "m_s02_03",
+            "m_s03_01",
+            "m_s04_09",
+            "m_s05_09",
+            "m_s05_03",
+            "m_s02_07",
+            "m_s01_05",
+            "m_s03_02",
+            "m_s04_03",
+            "m_correct_02",
+            "m_s01_02",
+            "m_s01_11",
+            "m_s03_09"
+          ],
+          "runtime_ms": 18,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_07",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "수로 침수가 수위표 장부와 암호표에 준 피해는?",
+          "expected_support_ids": [
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_06",
+            "m_s01_09",
+            "m_s03_05",
+            "m_s01_11",
+            "m_s04_07",
+            "m_s03_02",
+            "m_s05_02",
+            "m_s05_08",
+            "m_s01_05",
+            "m_correct_02",
+            "m_s04_09",
+            "m_s05_12",
+            "m_s03_11",
+            "m_s02_11",
+            "m_s02_07",
+            "m_s05_10",
+            "m_s03_07",
+            "m_s02_08",
+            "m_s04_02",
+            "m_s05_06"
+          ],
+          "runtime_ms": 50,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_08",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "은종의 검은 가루가 경보와 시장 침입으로 이어진 경로는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_09",
+            "m_s04_01",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s01_01",
+            "m_s05_01",
+            "m_s01_03",
+            "m_s02_12",
+            "m_s05_03",
+            "m_s04_10",
+            "m_s04_04",
+            "m_s02_03",
+            "m_s01_05",
+            "m_s04_02",
+            "m_s05_05",
+            "m_s01_04",
+            "m_s05_07",
+            "m_s03_11",
+            "m_s02_09",
+            "m_s01_02"
+          ],
+          "runtime_ms": 21,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_09",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 5,
+          "reciprocal_rank": 0.2,
+          "support_recall_at_5": 0.3333333333333333,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "경보 실패 뒤 전령 체포까지 어떤 단계가 있었나?",
+          "expected_support_ids": [
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_10",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s02_12",
+            "m_s05_12",
+            "m_s05_05",
+            "m_s03_04",
+            "m_s02_02",
+            "m_s05_08",
+            "m_s04_02",
+            "m_s05_01",
+            "m_s03_10",
+            "m_s02_01",
+            "m_s03_09",
+            "m_s02_09",
+            "m_s02_05",
+            "m_s04_09"
+          ],
+          "runtime_ms": 17,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_10",
+          "category": "causal",
+          "support_recall": 0.75,
+          "support_precision": 0.15,
+          "first_support_rank": 2,
+          "reciprocal_rank": 0.5,
+          "support_recall_at_5": 0.25,
+          "top1_support": false,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 가루 표본에서 전령 체포까지의 전체 경로는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_10",
+            "m_s03_09",
+            "m_s04_01",
+            "m_s02_12",
+            "m_s02_03",
+            "m_s01_01",
+            "m_s04_04",
+            "m_s05_03",
+            "m_s05_01",
+            "m_s02_04",
+            "m_s05_11",
+            "m_s01_04",
+            "m_s02_09",
+            "m_s05_07",
+            "m_s03_11",
+            "m_s01_05",
+            "m_s04_03",
+            "m_s01_02",
+            "m_s04_02",
+            "m_s05_05"
+          ],
+          "runtime_ms": 16,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_11",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 2,
+          "directed_paths_complete": 2,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "폭우가 서로 다른 운송과 등대 보급 결과를 일으켰는지 확인하라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_02",
+            "m_s01_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_02"
+              ],
+              "relations": [
+                "causes"
+              ]
+            },
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05"
+              ],
+              "relations": [
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s01_05",
+            "m_s01_01",
+            "m_s01_02",
+            "m_s04_08",
+            "m_s02_01",
+            "m_s04_09",
+            "m_s02_03",
+            "m_s02_05",
+            "m_s04_10",
+            "m_s05_02",
+            "m_s03_08",
+            "m_s04_05",
+            "m_s02_09",
+            "m_s03_05",
+            "m_s03_07",
+            "m_s01_12",
+            "m_s01_10",
+            "m_s04_11",
+            "m_s02_10",
+            "m_s01_03"
+          ],
+          "runtime_ms": 19,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_12",
+          "category": "causal",
+          "support_recall": 0.75,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.75,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "생선 시장에서 붙잡힌 전령에게 일어난 일을 추적하라",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_05",
+            "m_s05_04",
+            "m_s04_03",
+            "m_s05_12",
+            "m_s04_09",
+            "m_s03_10",
+            "m_s01_10",
+            "m_s04_11",
+            "m_s03_05",
+            "m_s03_04",
+            "m_correct_02",
+            "m_s04_05",
+            "m_s02_04",
+            "m_s02_07",
+            "m_s02_12",
+            "m_s05_02",
+            "m_s05_06",
+            "m_s05_01",
+            "m_s04_04",
+            "m_s01_11"
+          ],
+          "runtime_ms": 17,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_diag_01",
+          "category": "causal",
+          "support_recall": 0.5714285714285714,
+          "support_precision": 0.2,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.2857142857142857,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 돛단배의 소형 보트가 항구 안으로 들어온 사건을 찾아라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_01",
+            "m_s05_07",
+            "m_s01_04",
+            "m_s01_01",
+            "m_s02_03",
+            "m_s02_09",
+            "m_s03_11",
+            "m_s02_04",
+            "m_s03_09",
+            "m_s05_03",
+            "m_s04_03",
+            "m_s04_01",
+            "m_s04_04",
+            "m_s01_05",
+            "m_s01_02",
+            "m_s04_10",
+            "m_s01_09",
+            "m_s04_02",
+            "m_s05_04",
+            "m_s02_10"
+          ],
+          "runtime_ms": 31,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_diag_02",
+          "category": "causal",
+          "support_recall": 0.4,
+          "support_precision": 0.1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.4,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "판독 불가가 된 암호표의 원인을 추적하라",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_07",
+            "m_s04_06",
+            "m_s05_08",
+            "m_s02_11",
+            "m_s01_09",
+            "m_s01_08",
+            "m_s03_10",
+            "m_s01_11",
+            "m_s04_04",
+            "m_s05_12",
+            "m_s05_11",
+            "m_s02_07",
+            "m_s05_06",
+            "m_s04_03",
+            "m_s04_09",
+            "m_s03_12",
+            "m_correct_02",
+            "m_s02_06",
+            "m_s01_03",
+            "m_s03_09"
+          ],
+          "runtime_ms": 17,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_01",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.05,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [
+            "m_s01_12"
+          ],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "안개와 은종이 같이 관측됐으므로 종이 안개를 일으킨 것인가?",
+          "expected_support_ids": [
+            "m_s01_03"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_03",
+            "m_s01_12",
+            "m_s04_01",
+            "m_s03_09",
+            "m_s01_10",
+            "m_s03_06",
+            "m_s04_03",
+            "m_s05_09",
+            "m_s04_04",
+            "m_s05_03",
+            "m_s03_05",
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_11",
+            "m_s02_07",
+            "m_s01_08",
+            "m_s01_11",
+            "m_s05_10",
+            "m_s05_11",
+            "m_s04_11"
+          ],
+          "runtime_ms": 16,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_02",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.05,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "잠수부가 수문을 열었다고 입증됐나?",
+          "expected_support_ids": [
+            "m_correct_02"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_correct_02",
+            "m_s05_10",
+            "m_s04_09",
+            "m_s04_06",
+            "m_s01_09",
+            "m_s05_12",
+            "m_s05_04",
+            "m_s02_07",
+            "m_s01_10",
+            "m_s01_11",
+            "m_s01_08",
+            "m_s03_05",
+            "m_s04_07",
+            "m_s03_07",
+            "m_s05_01",
+            "m_s02_04",
+            "m_s02_09",
+            "m_s03_02",
+            "m_s05_11",
+            "m_s02_05"
+          ],
+          "runtime_ms": 16,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_03",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "붉은 물결 조합이 등대 약품을 훔쳤나?",
+          "expected_support_ids": [
+            "m_s04_08",
+            "m_s04_09"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_08",
+            "m_s04_09",
+            "m_s05_09",
+            "m_s02_06",
+            "m_s01_05",
+            "m_s03_12",
+            "m_s01_01",
+            "m_s02_03",
+            "m_s02_09",
+            "m_s02_05",
+            "m_s03_08",
+            "m_s02_01",
+            "m_s04_05",
+            "m_s05_02",
+            "m_s04_10",
+            "m_s03_05",
+            "m_s01_02",
+            "m_s03_07",
+            "m_s01_10",
+            "m_s04_11"
+          ],
+          "runtime_ms": 17,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_04",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.05,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "게시판 암호 노출 기억을 다시 검색해 보안 위험을 그대로 반환하나?",
+          "expected_support_ids": [
+            "m_s05_08"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_08",
+            "m_s05_12",
+            "m_s04_07",
+            "m_s03_10",
+            "m_s01_07",
+            "m_s02_12",
+            "m_correct_02",
+            "m_s02_06",
+            "m_s03_06",
+            "m_s01_08",
+            "m_s04_09",
+            "m_s04_06",
+            "m_s04_03",
+            "m_s05_11",
+            "m_s02_07",
+            "m_s03_09",
+            "m_s05_04",
+            "m_s03_07",
+            "m_s02_08",
+            "m_s04_05"
+          ],
+          "runtime_ms": 28,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_01",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 0.6666666666666666,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "후드를 쓴 사람은 누구인가?",
+          "expected_support_ids": [
+            "m_s03_05",
+            "m_s05_02"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s03_05",
+            "m_s05_02",
+            "m_s05_03"
+          ],
+          "runtime_ms": 8,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_02",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 가루를 바른 인물의 신원은 어떻게 확인됐나?",
+          "expected_support_ids": [
+            "m_s03_05",
+            "m_s05_02",
+            "m_s05_03"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_03",
+            "m_s03_05",
+            "m_s05_02"
+          ],
+          "runtime_ms": 5,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_03",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 0.75,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "세관 서기 도윤과 부두 노동자 도윤을 구분하라",
+          "expected_support_ids": [
+            "m_s01_04",
+            "m_s05_06",
+            "m_s05_07"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_07",
+            "m_s01_04",
+            "m_s05_06",
+            "m_correct_01"
+          ],
+          "runtime_ms": 4,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_01",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.3333333333333333,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "나리와 서기 도윤은 어떤 사건에서 함께 언급되나?",
+          "expected_support_ids": [
+            "m_s01_04",
+            "m_correct_01"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_04",
+            "m_correct_01",
+            "m_s01_11",
+            "m_s01_02",
+            "m_s05_12",
+            "m_s05_08"
+          ],
+          "runtime_ms": 5,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_02",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.5714285714285714,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.75,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "은종과 경비대의 관계, 고장 결과는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_01",
+            "m_s04_03",
+            "m_s05_09"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_03",
+            "m_s03_09",
+            "m_s05_09",
+            "m_s01_12",
+            "m_s03_06",
+            "m_s01_03",
+            "m_s04_01"
+          ],
+          "runtime_ms": 8,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_03",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.8,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "조사관 백과 서기 지수는 봉인 기록을 어떻게 다뤘나?",
+          "expected_support_ids": [
+            "m_s02_07",
+            "m_s02_08",
+            "m_s02_11",
+            "m_s05_06"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s02_08",
+            "m_s02_07",
+            "m_s02_11",
+            "m_s05_02",
+            "m_s05_06"
+          ],
+          "runtime_ms": 7,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_temporal_01",
+          "category": "temporal",
+          "support_recall": 1,
+          "support_precision": 0.2,
+          "first_support_rank": 3,
+          "reciprocal_rank": 0.3333333333333333,
+          "support_recall_at_5": 0.5,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "2월 1일부터 2월 5일까지 서문과 봉화에 관한 기록을 시간순으로 찾아라",
+          "expected_support_ids": [
+            "m_s01_08",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s02_07",
+            "m_s04_02",
+            "m_s03_04",
+            "m_s02_02",
+            "m_s01_11",
+            "m_s02_01",
+            "m_s04_09",
+            "m_s02_12",
+            "m_s01_08",
+            "m_s05_12",
+            "m_s04_03",
+            "m_s02_08",
+            "m_s01_05",
+            "m_s04_05",
+            "m_s05_01",
+            "m_s02_11",
+            "m_s05_05",
+            "m_s03_09",
+            "m_s03_05",
+            "m_s01_07"
+          ],
+          "runtime_ms": 23,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_temporal_02",
+          "category": "temporal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "2월 3일부터 2월 4일까지 침수와 장부 손상이 어떻게 진행됐나?",
+          "expected_support_ids": [
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_06",
+            "m_s04_07",
+            "m_s03_07",
+            "m_s04_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_03",
+            "m_s03_09",
+            "m_s04_01",
+            "m_s04_02",
+            "m_s03_11",
+            "m_s03_12",
+            "m_s04_11",
+            "m_s04_05",
+            "m_s04_08",
+            "m_s04_04",
+            "m_s03_05",
+            "m_s03_04",
+            "m_s03_06",
+            "m_s04_10"
+          ],
+          "runtime_ms": 11,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_05",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.16666666666666666,
+          "first_support_rank": 3,
+          "reciprocal_rank": 0.3333333333333333,
+          "support_recall_at_5": 1,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "평행 캠페인의 대상단장 나리를 검은 항구 조사관 나리의 기억으로 섞지 말라",
+          "expected_support_ids": [
+            "m_s01_11"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_04",
+            "m_correct_01",
+            "m_s01_11",
+            "m_s05_12",
+            "m_s01_02",
+            "m_s05_08"
+          ],
+          "runtime_ms": 6,
+          "retrieval": {
+            "requested": "hybrid",
+            "used": "hybrid",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        }
+      ],
+      "support_recall": 0.9433862433862434,
+      "support_recall_at_5": 0.7625220458553792,
+      "mrr": 0.8592592592592591,
+      "top1_support": 0.7777777777777778,
+      "minimal_gold_precision": 0.2699294532627866,
+      "support_complete": 23,
+      "path_node_coverage_complete": 11,
+      "path_count": 15,
+      "scoped_active": true,
+      "exclusion_violations": 1,
+      "p95_runtime_ms": 32,
+      "provider_failures": 0,
+      "categories": {
+        "causal": {
+          "cases": 14,
+          "support_recall": 0.8908163265306123,
+          "support_recall_at_5": 0.6193877551020409,
+          "mrr": 0.8238095238095238,
+          "top1_support": 0.7142857142857143,
+          "minimal_gold_precision": 0.17142857142857143,
+          "support_complete": 10,
+          "path_node_coverage_complete": 11,
+          "path_count": 15,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "negative": {
+          "cases": 5,
+          "support_recall": 1,
+          "support_recall_at_5": 1,
+          "mrr": 0.8666666666666666,
+          "top1_support": 0.8,
+          "minimal_gold_precision": 0.08333333333333333,
+          "support_complete": 5,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 1
+        },
+        "identity": {
+          "cases": 3,
+          "support_recall": 1,
+          "support_recall_at_5": 1,
+          "mrr": 1,
+          "top1_support": 1,
+          "minimal_gold_precision": 0.8055555555555555,
+          "support_complete": 3,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "relationship": {
+          "cases": 3,
+          "support_recall": 1,
+          "support_recall_at_5": 0.9166666666666666,
+          "mrr": 1,
+          "top1_support": 1,
+          "minimal_gold_precision": 0.5682539682539682,
+          "support_complete": 3,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "temporal": {
+          "cases": 2,
+          "support_recall": 1,
+          "support_recall_at_5": 0.5833333333333333,
+          "mrr": 0.6666666666666666,
+          "top1_support": 0.5,
+          "minimal_gold_precision": 0.175,
+          "support_complete": 2,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        }
+      }
+    },
+    {
+      "mode": "decision",
+      "provider_comparison_valid": true,
+      "cases": [
+        {
+          "query_id": "q_causal_01",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.35,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.7142857142857143,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "폭우에서 서문으로 밀수선이 들어오기까지의 인과 경로를 찾아라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s01_05",
+            "m_s02_01",
+            "m_s04_02",
+            "m_s03_04",
+            "m_s02_02",
+            "m_s05_01",
+            "m_s01_02",
+            "m_s01_01",
+            "m_s04_03",
+            "m_s05_12",
+            "m_s05_04",
+            "m_s02_10",
+            "m_s04_05",
+            "m_s05_10",
+            "m_correct_02",
+            "m_s04_11",
+            "m_s03_05",
+            "m_s05_05",
+            "m_s03_10",
+            "m_s02_06"
+          ],
+          "runtime_ms": 1665,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_02",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "짐수레 지연이 등대 봉화와 경비 순찰에 미친 결과는?",
+          "expected_support_ids": [
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s02_02",
+            "m_s03_04",
+            "m_s02_01",
+            "m_s04_02",
+            "m_s01_05",
+            "m_s01_08",
+            "m_s05_01",
+            "m_s01_02",
+            "m_s05_12",
+            "m_s01_01",
+            "m_s02_05",
+            "m_s04_05",
+            "m_s02_09",
+            "m_s04_10",
+            "m_s02_03",
+            "m_s04_08",
+            "m_s03_07",
+            "m_s04_09",
+            "m_s03_08",
+            "m_s03_05"
+          ],
+          "runtime_ms": 1616,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_03",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "늦은 봉화가 서문 경비 공백을 만든 과정은?",
+          "expected_support_ids": [
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_04",
+            "m_s04_02",
+            "m_s02_02",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_12",
+            "m_s01_08",
+            "m_s05_04",
+            "m_s04_03",
+            "m_s05_12",
+            "m_s01_11",
+            "m_s05_01",
+            "m_s04_09",
+            "m_s04_05",
+            "m_correct_02",
+            "m_s05_06",
+            "m_s02_07",
+            "m_s02_11",
+            "m_s03_09",
+            "m_s02_08"
+          ],
+          "runtime_ms": 1648,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_04",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "서문 경비 공백이 실제로 어떤 진입 기회를 만들었나?",
+          "expected_support_ids": [
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_01",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s02_02",
+            "m_s04_02",
+            "m_s03_04",
+            "m_s01_08",
+            "m_s02_12",
+            "m_s02_01",
+            "m_s04_05",
+            "m_s01_07",
+            "m_s05_12",
+            "m_s03_05",
+            "m_s01_11",
+            "m_s05_06",
+            "m_correct_02",
+            "m_s01_01",
+            "m_s04_09",
+            "m_s03_09",
+            "m_s05_08"
+          ],
+          "runtime_ms": 1643,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_05",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.25,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "펌프 기름 도난에서 암호표 손실까지의 원인 사슬은?",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_06",
+            "m_s04_07",
+            "m_s03_02",
+            "m_s02_09",
+            "m_s03_01",
+            "m_s02_04",
+            "m_s02_05",
+            "m_s01_09",
+            "m_s05_03",
+            "m_s05_08",
+            "m_s02_03",
+            "m_s05_09",
+            "m_s04_03",
+            "m_s04_09",
+            "m_s02_07",
+            "m_s02_08",
+            "m_s03_04",
+            "m_s02_12",
+            "m_s05_05",
+            "m_s03_10"
+          ],
+          "runtime_ms": 1809,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_06",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.2,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.75,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "기름통 유출과 기록실 침수 사이의 인과 경로는?",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_02",
+            "m_s03_01",
+            "m_s02_09",
+            "m_s02_04",
+            "m_s05_03",
+            "m_s04_06",
+            "m_s02_05",
+            "m_s03_07",
+            "m_s02_03",
+            "m_s01_09",
+            "m_s05_09",
+            "m_s04_03",
+            "m_correct_02",
+            "m_s01_11",
+            "m_s03_09",
+            "m_s01_05",
+            "m_s01_02",
+            "m_s04_09",
+            "m_s02_07",
+            "m_s02_12"
+          ],
+          "runtime_ms": 1629,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_07",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "수로 침수가 수위표 장부와 암호표에 준 피해는?",
+          "expected_support_ids": [
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_07",
+            "m_s04_06",
+            "m_s02_11",
+            "m_s01_09",
+            "m_s05_06",
+            "m_s01_11",
+            "m_s03_02",
+            "m_s03_07",
+            "m_s05_08",
+            "m_s02_08",
+            "m_s02_07",
+            "m_s01_05",
+            "m_s05_12",
+            "m_s04_02",
+            "m_s04_09",
+            "m_correct_02",
+            "m_s05_10",
+            "m_s03_11",
+            "m_s05_02",
+            "m_s03_05"
+          ],
+          "runtime_ms": 1623,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_08",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "은종의 검은 가루가 경보와 시장 침입으로 이어진 경로는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04"
+              ],
+              "relations": [
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_03",
+            "m_s04_02",
+            "m_s01_05",
+            "m_s05_01",
+            "m_s02_12",
+            "m_s03_09",
+            "m_s04_01",
+            "m_s04_04",
+            "m_s01_03",
+            "m_s01_04",
+            "m_s05_05",
+            "m_s03_11",
+            "m_s01_02",
+            "m_s05_07",
+            "m_s02_09",
+            "m_s02_03",
+            "m_s01_01",
+            "m_s04_10"
+          ],
+          "runtime_ms": 1086,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_09",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.6666666666666666,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 1,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "경보 실패 뒤 전령 체포까지 어떤 단계가 있었나?",
+          "expected_support_ids": [
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_05",
+            "m_s04_03",
+            "m_s04_02",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s05_04",
+            "m_s02_12",
+            "m_s02_01",
+            "m_s05_01",
+            "m_s05_12",
+            "m_s02_09",
+            "m_s03_09",
+            "m_s02_05",
+            "m_s03_10",
+            "m_s03_02",
+            "m_s03_01",
+            "m_s04_06",
+            "m_s05_08",
+            "m_s04_09",
+            "m_s02_10"
+          ],
+          "runtime_ms": 466,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_10",
+          "category": "causal",
+          "support_recall": 0.75,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.75,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 가루 표본에서 전령 체포까지의 전체 경로는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s03_09",
+            "m_s05_03",
+            "m_s04_03",
+            "m_s04_01",
+            "m_s05_05",
+            "m_s04_02",
+            "m_s04_04",
+            "m_s01_05",
+            "m_s04_10",
+            "m_s03_11",
+            "m_s01_04",
+            "m_s02_09",
+            "m_s05_01",
+            "m_s02_12",
+            "m_s01_02",
+            "m_s02_04",
+            "m_s05_07",
+            "m_s02_03",
+            "m_s05_11",
+            "m_s01_01"
+          ],
+          "runtime_ms": 1629,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_11",
+          "category": "causal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 2,
+          "directed_paths_complete": 2,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "폭우가 서로 다른 운송과 등대 보급 결과를 일으켰는지 확인하라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_02",
+            "m_s01_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_02"
+              ],
+              "relations": [
+                "causes"
+              ]
+            },
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05"
+              ],
+              "relations": [
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s01_05",
+            "m_s01_02",
+            "m_s02_01",
+            "m_s02_10",
+            "m_s01_01",
+            "m_s03_07",
+            "m_s01_03",
+            "m_s02_09",
+            "m_s02_03",
+            "m_s01_12",
+            "m_s04_11",
+            "m_s04_08",
+            "m_s01_10",
+            "m_s02_05",
+            "m_s04_09",
+            "m_s04_05",
+            "m_s04_10",
+            "m_s03_08",
+            "m_s03_05",
+            "m_s05_02"
+          ],
+          "runtime_ms": 1619,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_12",
+          "category": "causal",
+          "support_recall": 0.75,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.5,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "생선 시장에서 붙잡힌 전령에게 일어난 일을 추적하라",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s03_09",
+                "m_s04_03",
+                "m_s05_04",
+                "m_s05_05"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "enables"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_05",
+            "m_s05_12",
+            "m_s05_04",
+            "m_s05_02",
+            "m_s03_10",
+            "m_s04_05",
+            "m_s05_01",
+            "m_s02_07",
+            "m_s04_04",
+            "m_s02_04",
+            "m_s03_05",
+            "m_s05_06",
+            "m_s02_12",
+            "m_s03_04",
+            "m_s04_03",
+            "m_correct_02",
+            "m_s01_10",
+            "m_s01_11",
+            "m_s04_11",
+            "m_s04_09"
+          ],
+          "runtime_ms": 1651,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_diag_01",
+          "category": "causal",
+          "support_recall": 0.5714285714285714,
+          "support_precision": 0.2,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.42857142857142855,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 돛단배의 소형 보트가 항구 안으로 들어온 사건을 찾아라",
+          "expected_support_ids": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s01_01",
+                "m_s01_05",
+                "m_s02_01",
+                "m_s02_02",
+                "m_s03_04",
+                "m_s04_02",
+                "m_s05_01"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s05_01",
+            "m_s04_02",
+            "m_s02_04",
+            "m_s05_04",
+            "m_s01_01",
+            "m_s01_04",
+            "m_s02_10",
+            "m_s05_07",
+            "m_s04_03",
+            "m_s02_09",
+            "m_s02_03",
+            "m_s05_03",
+            "m_s01_09",
+            "m_s03_11",
+            "m_s04_04",
+            "m_s04_01",
+            "m_s01_05",
+            "m_s01_02",
+            "m_s04_10",
+            "m_s03_09"
+          ],
+          "runtime_ms": 1648,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_causal_diag_02",
+          "category": "causal",
+          "support_recall": 0.4,
+          "support_precision": 0.1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 0.4,
+          "top1_support": true,
+          "support_complete": false,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 1,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "판독 불가가 된 암호표의 원인을 추적하라",
+          "expected_support_ids": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [
+            {
+              "nodes": [
+                "m_s02_09",
+                "m_s03_01",
+                "m_s03_02",
+                "m_s04_06",
+                "m_s04_07"
+              ],
+              "relations": [
+                "causes",
+                "causes",
+                "causes",
+                "causes"
+              ]
+            }
+          ],
+          "returned_ids": [
+            "m_s04_07",
+            "m_s05_06",
+            "m_s02_11",
+            "m_s04_06",
+            "m_s01_11",
+            "m_s01_09",
+            "m_s04_04",
+            "m_s05_08",
+            "m_s03_09",
+            "m_s01_08",
+            "m_s02_07",
+            "m_s04_03",
+            "m_s05_11",
+            "m_s05_12",
+            "m_s01_03",
+            "m_correct_02",
+            "m_s03_10",
+            "m_s04_09",
+            "m_s03_12",
+            "m_s02_06"
+          ],
+          "runtime_ms": 1667,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_01",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.05,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [
+            "m_s01_12"
+          ],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "안개와 은종이 같이 관측됐으므로 종이 안개를 일으킨 것인가?",
+          "expected_support_ids": [
+            "m_s01_03"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_03",
+            "m_s01_12",
+            "m_s05_03",
+            "m_s03_06",
+            "m_s04_01",
+            "m_s03_09",
+            "m_s04_04",
+            "m_s04_03",
+            "m_s03_05",
+            "m_s01_01",
+            "m_s02_07",
+            "m_s05_09",
+            "m_s05_10",
+            "m_s01_10",
+            "m_s02_11",
+            "m_s01_08",
+            "m_s05_11",
+            "m_s01_05",
+            "m_s01_11",
+            "m_s04_11"
+          ],
+          "runtime_ms": 1607,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_02",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.05,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "잠수부가 수문을 열었다고 입증됐나?",
+          "expected_support_ids": [
+            "m_correct_02"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_correct_02",
+            "m_s03_07",
+            "m_s02_09",
+            "m_s02_04",
+            "m_s03_05",
+            "m_s05_01",
+            "m_s01_11",
+            "m_s03_02",
+            "m_s01_09",
+            "m_s01_08",
+            "m_s05_11",
+            "m_s02_05",
+            "m_s04_06",
+            "m_s01_10",
+            "m_s05_12",
+            "m_s04_07",
+            "m_s05_10",
+            "m_s04_09",
+            "m_s02_07",
+            "m_s05_04"
+          ],
+          "runtime_ms": 1544,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_03",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "붉은 물결 조합이 등대 약품을 훔쳤나?",
+          "expected_support_ids": [
+            "m_s04_08",
+            "m_s04_09"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_09",
+            "m_s04_08",
+            "m_s02_09",
+            "m_s02_05",
+            "m_s02_03",
+            "m_s05_09",
+            "m_s04_10",
+            "m_s03_07",
+            "m_s05_02",
+            "m_s03_12",
+            "m_s03_08",
+            "m_s04_05",
+            "m_s02_01",
+            "m_s03_05",
+            "m_s01_10",
+            "m_s01_05",
+            "m_s02_06",
+            "m_s04_11",
+            "m_s01_02",
+            "m_s01_01"
+          ],
+          "runtime_ms": 1608,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_04",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.05,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "게시판 암호 노출 기억을 다시 검색해 보안 위험을 그대로 반환하나?",
+          "expected_support_ids": [
+            "m_s05_08"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_08",
+            "m_s04_07",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s03_09",
+            "m_s04_06",
+            "m_s03_07",
+            "m_s02_08",
+            "m_s04_09",
+            "m_s01_08",
+            "m_s02_07",
+            "m_s05_11",
+            "m_s03_06",
+            "m_s02_06",
+            "m_s01_07",
+            "m_correct_02",
+            "m_s04_05",
+            "m_s03_10",
+            "m_s02_12",
+            "m_s05_12"
+          ],
+          "runtime_ms": 1616,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_01",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 0.6666666666666666,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "후드를 쓴 사람은 누구인가?",
+          "expected_support_ids": [
+            "m_s03_05",
+            "m_s05_02"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_02",
+            "m_s05_03",
+            "m_s03_05"
+          ],
+          "runtime_ms": 350,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_02",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 1,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "검은 가루를 바른 인물의 신원은 어떻게 확인됐나?",
+          "expected_support_ids": [
+            "m_s03_05",
+            "m_s05_02",
+            "m_s05_03"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_02",
+            "m_s05_03",
+            "m_s03_05"
+          ],
+          "runtime_ms": 336,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_identity_03",
+          "category": "identity",
+          "support_recall": 1,
+          "support_precision": 0.75,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "세관 서기 도윤과 부두 노동자 도윤을 구분하라",
+          "expected_support_ids": [
+            "m_s01_04",
+            "m_s05_06",
+            "m_s05_07"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s05_07",
+            "m_s01_04",
+            "m_correct_01",
+            "m_s05_06"
+          ],
+          "runtime_ms": 357,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_01",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.3333333333333333,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "나리와 서기 도윤은 어떤 사건에서 함께 언급되나?",
+          "expected_support_ids": [
+            "m_s01_04",
+            "m_correct_01"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_04",
+            "m_correct_01",
+            "m_s01_11",
+            "m_s05_12",
+            "m_s05_08",
+            "m_s01_02"
+          ],
+          "runtime_ms": 400,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_02",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.5714285714285714,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "은종과 경비대의 관계, 고장 결과는?",
+          "expected_support_ids": [
+            "m_s03_09",
+            "m_s04_01",
+            "m_s04_03",
+            "m_s05_09"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_03",
+            "m_s03_09",
+            "m_s04_01",
+            "m_s03_06",
+            "m_s05_09",
+            "m_s01_12",
+            "m_s01_03"
+          ],
+          "runtime_ms": 456,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_relationship_03",
+          "category": "relationship",
+          "support_recall": 1,
+          "support_precision": 0.8,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "조사관 백과 서기 지수는 봉인 기록을 어떻게 다뤘나?",
+          "expected_support_ids": [
+            "m_s02_07",
+            "m_s02_08",
+            "m_s02_11",
+            "m_s05_06"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s02_08",
+            "m_s02_11",
+            "m_s02_07",
+            "m_s05_06",
+            "m_s05_02"
+          ],
+          "runtime_ms": 367,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_temporal_01",
+          "category": "temporal",
+          "support_recall": 1,
+          "support_precision": 0.2,
+          "first_support_rank": 2,
+          "reciprocal_rank": 0.5,
+          "support_recall_at_5": 0.75,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "2월 1일부터 2월 5일까지 서문과 봉화에 관한 기록을 시간순으로 찾아라",
+          "expected_support_ids": [
+            "m_s01_08",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_02",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s01_08",
+            "m_s05_01",
+            "m_s04_05",
+            "m_s02_12",
+            "m_s01_05",
+            "m_s04_03",
+            "m_s02_01",
+            "m_s05_12",
+            "m_s01_11",
+            "m_s01_07",
+            "m_s04_09",
+            "m_s03_05",
+            "m_s03_09",
+            "m_s02_08",
+            "m_s02_07",
+            "m_s05_05",
+            "m_s02_11"
+          ],
+          "runtime_ms": 1582,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_temporal_02",
+          "category": "temporal",
+          "support_recall": 1,
+          "support_precision": 0.15,
+          "first_support_rank": 1,
+          "reciprocal_rank": 1,
+          "support_recall_at_5": 1,
+          "top1_support": true,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "2월 3일부터 2월 4일까지 침수와 장부 손상이 어떻게 진행됐나?",
+          "expected_support_ids": [
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s04_06",
+            "m_s04_07",
+            "m_s03_02",
+            "m_s03_01",
+            "m_s03_07",
+            "m_s04_03",
+            "m_s04_02",
+            "m_s03_04",
+            "m_s04_09",
+            "m_s03_06",
+            "m_s04_04",
+            "m_s03_12",
+            "m_s03_09",
+            "m_s04_10",
+            "m_s04_08",
+            "m_s03_05",
+            "m_s04_01",
+            "m_s04_05",
+            "m_s03_11",
+            "m_s04_11"
+          ],
+          "runtime_ms": 1578,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        },
+        {
+          "query_id": "q_negative_05",
+          "category": "negative",
+          "support_recall": 1,
+          "support_precision": 0.16666666666666666,
+          "first_support_rank": 3,
+          "reciprocal_rank": 0.3333333333333333,
+          "support_recall_at_5": 1,
+          "top1_support": false,
+          "support_complete": true,
+          "excluded_returned_ids": [],
+          "directed_paths_total": 0,
+          "directed_paths_complete": 0,
+          "structured_paths_returned": false,
+          "scoped_active": true,
+          "query": "평행 캠페인의 대상단장 나리를 검은 항구 조사관 나리의 기억으로 섞지 말라",
+          "expected_support_ids": [
+            "m_s01_11"
+          ],
+          "expected_paths": [],
+          "returned_ids": [
+            "m_s01_04",
+            "m_s05_12",
+            "m_s01_11",
+            "m_s05_08",
+            "m_correct_01",
+            "m_s01_02"
+          ],
+          "runtime_ms": 445,
+          "retrieval": {
+            "requested": "decision",
+            "used": "decision",
+            "warnings": [],
+            "embedding_model": "nvidia/nemotron-3-embed-1b:free",
+            "decision_model": "inception/mercury-decide:free"
+          }
+        }
+      ],
+      "support_recall": 0.9433862433862434,
+      "support_recall_at_5": 0.8626984126984127,
+      "mrr": 0.95679012345679,
+      "top1_support": 0.9259259259259259,
+      "minimal_gold_precision": 0.2699294532627866,
+      "support_complete": 23,
+      "path_node_coverage_complete": 11,
+      "path_count": 15,
+      "scoped_active": true,
+      "exclusion_violations": 1,
+      "p95_runtime_ms": 1667,
+      "provider_failures": 0,
+      "categories": {
+        "causal": {
+          "cases": 14,
+          "support_recall": 0.8908163265306123,
+          "support_recall_at_5": 0.7530612244897961,
+          "mrr": 1,
+          "top1_support": 1,
+          "minimal_gold_precision": 0.17142857142857143,
+          "support_complete": 10,
+          "path_node_coverage_complete": 11,
+          "path_count": 15,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "negative": {
+          "cases": 5,
+          "support_recall": 1,
+          "support_recall_at_5": 1,
+          "mrr": 0.8666666666666666,
+          "top1_support": 0.8,
+          "minimal_gold_precision": 0.08333333333333333,
+          "support_complete": 5,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 1
+        },
+        "identity": {
+          "cases": 3,
+          "support_recall": 1,
+          "support_recall_at_5": 1,
+          "mrr": 1,
+          "top1_support": 1,
+          "minimal_gold_precision": 0.8055555555555555,
+          "support_complete": 3,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "relationship": {
+          "cases": 3,
+          "support_recall": 1,
+          "support_recall_at_5": 1,
+          "mrr": 1,
+          "top1_support": 1,
+          "minimal_gold_precision": 0.5682539682539682,
+          "support_complete": 3,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        },
+        "temporal": {
+          "cases": 2,
+          "support_recall": 1,
+          "support_recall_at_5": 0.875,
+          "mrr": 0.75,
+          "top1_support": 0.5,
+          "minimal_gold_precision": 0.175,
+          "support_complete": 2,
+          "path_node_coverage_complete": 0,
+          "path_count": 0,
+          "scoped_active": true,
+          "exclusion_violations": 0
+        }
+      }
+    }
+  ],
+  "entity_decisions": {
+    "evaluated": 6,
+    "correct": 6,
+    "unknown_cases": 3,
+    "false_merges": 0,
+    "cases": [
+      {
+        "id": "ed_known_identity",
+        "as_of_session": "session-05",
+        "mention": "후드를 쓴 사람",
+        "expected_entity_id": "person_wol",
+        "candidate_ids": [
+          "person_wol",
+          "person_taeo",
+          "person_seok"
+        ],
+        "evaluated": true,
+        "provider_error": false,
+        "choice": "person_wol",
+        "correct": true,
+        "response": {
+          "choice": "person_wol",
+          "probabilities": {
+            "person_wol": 0.9979826462273019,
+            "person_taeo": 0.00004256325507860948,
+            "person_seok": 0.00004823048664981507
+          },
+          "unknownProbability": 0.0019265600309695632,
+          "confidence": 0.997310194969736
+        }
+      },
+      {
+        "id": "ed_alias_wolf",
+        "as_of_session": "session-05",
+        "mention": "늑대",
+        "expected_entity_id": "person_wol",
+        "candidate_ids": [
+          "person_wol",
+          "person_doyun_dock"
+        ],
+        "evaluated": true,
+        "provider_error": false,
+        "choice": "person_wol",
+        "correct": true,
+        "response": {
+          "choice": "person_wol",
+          "probabilities": {
+            "person_wol": 0.9997221168906731,
+            "person_doyun_dock": 0.000016697065179382815
+          },
+          "unknownProbability": 0.00026118604414738177,
+          "confidence": 0.9995831753360097
+        }
+      },
+      {
+        "id": "ed_unknown_powder",
+        "as_of_session": "session-03",
+        "mention": "검은 가루를 은종에 바른 사람",
+        "expected_entity_id": null,
+        "candidate_ids": [
+          "person_seok",
+          "person_nari",
+          "person_baek"
+        ],
+        "evaluated": true,
+        "provider_error": false,
+        "choice": null,
+        "correct": true,
+        "response": {
+          "choice": null,
+          "probabilities": {
+            "person_seok": 0.007575552920228942,
+            "person_nari": 0.00013875109166940902,
+            "person_baek": 0.00008415679116609471
+          },
+          "unknownProbability": 0.9922015391969355,
+          "confidence": 0.9896020522625807
+        }
+      },
+      {
+        "id": "ed_same_name_doyun",
+        "as_of_session": "session-05",
+        "mention": "장부의 번진 숫자를 확인한 세관 서기 도윤",
+        "expected_entity_id": "person_doyun",
+        "candidate_ids": [
+          "person_doyun",
+          "person_doyun_dock",
+          "person_jisu"
+        ],
+        "evaluated": true,
+        "provider_error": false,
+        "choice": "person_doyun",
+        "correct": true,
+        "response": {
+          "choice": "person_doyun",
+          "probabilities": {
+            "person_doyun": 0.9803137237617683,
+            "person_doyun_dock": 0.0005093461885893533,
+            "person_jisu": 0.0012218579878833056
+          },
+          "unknownProbability": 0.017955072061759076,
+          "confidence": 0.9737516316823577
+        }
+      },
+      {
+        "id": "ed_new_npc",
+        "as_of_session": "session-02",
+        "mention": "노란 장갑을 낀 신호수",
+        "expected_entity_id": null,
+        "candidate_ids": [
+          "person_hyejin",
+          "person_ara",
+          "person_doyun"
+        ],
+        "evaluated": true,
+        "provider_error": false,
+        "choice": null,
+        "correct": true,
+        "response": {
+          "choice": null,
+          "probabilities": {
+            "person_hyejin": 0.0007549876858936327,
+            "person_ara": 0.0004301790163055369,
+            "person_doyun": 0.00012324835168013424
+          },
+          "unknownProbability": 0.9986915849461208,
+          "confidence": 0.9982554465948277
+        }
+      },
+      {
+        "id": "ed_ambiguous_captain",
+        "as_of_session": "session-03",
+        "mention": "늑대라고 불린 선장",
+        "expected_entity_id": null,
+        "candidate_ids": [
+          "person_seok",
+          "person_nari",
+          "person_hyejin"
+        ],
+        "evaluated": true,
+        "provider_error": false,
+        "choice": null,
+        "correct": true,
+        "response": {
+          "choice": null,
+          "probabilities": {
+            "person_seok": 0.00011590763155909335,
+            "person_nari": 0.00007030153223526574,
+            "person_hyejin": 0.0000311961158239775
+          },
+          "unknownProbability": 0.9997825947203817,
+          "confidence": 0.9997101262938423
+        }
+      }
+    ]
+  },
+  "invariants": {
+    "read_only_recall": true,
+    "scoped_active": true,
+    "entity_proposals_read_only": true
+  },
+  "network": [
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 1450,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 719,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 1178,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 800,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/v1/embeddings",
+      "status": 200,
+      "ms": 1530,
+      "model": "private/openrouter/nvidia/nemotron-3-embed-1b",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1638,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1594,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1609,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1614,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1779,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1603,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1587,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1061,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 436,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1606,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1598,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1629,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1628,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1641,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1589,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1526,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1588,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1599,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 344,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 326,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 351,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 393,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 446,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 353,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1558,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 1566,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 437,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 566,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 253,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 248,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 327,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 317,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    },
+    {
+      "endpoint": "/api/alpha/decisions",
+      "status": 200,
+      "ms": 342,
+      "model": "inception/mercury-decide-20260930",
+      "cost": 0,
+      "error_code": null,
+      "policy_block": null
+    }
+  ],
+  "reported_cost": 0,
+  "missing_cost_metadata": 0
+}

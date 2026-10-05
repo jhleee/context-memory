@@ -130,6 +130,18 @@ npm run smoke:openrouter
 
 프록시가 필요한 실행 환경에서는 Node.js 24의 `NODE_USE_ENV_PROXY=1`과 환경에 제공된 프록시·CA 설정을 사용하세요. 키·응답 오류 본문은 로그나 SQLite 실패 메시지에 저장하지 않습니다.
 
+## 게임 관계도 벤치마크
+
+5회차 가상 TRPG의 30개 Entity·60개 Memory로 관계·정체·시간·인과 질문 27개와 인물 판별 6개를 검증합니다. [데이터·측정 결과와 한계](evaluation/gameplay-benchmark-report.md)를 참고하세요.
+
+```bash
+npm run benchmark:gameplay
+# OPENROUTER_API_KEY 설정 후 실제 모델 비교
+npm run benchmark:gameplay -- --live
+```
+
+실제 모델 비교에서 필수 근거 회수율은 어휘 74.4% → 하이브리드 94.3%, 상위 5개 회수율은 Decision 재정렬 후 86.3%였습니다. 인물 판별은 6/6 정답입니다. 경로 전체 노드 회수는 7/15 → 11/15이며, 이는 인과 답변 정확도가 아닙니다.
+
 ## 선택 임베딩
 
 로컬 Ollama를 별도로 설치·실행하고, 사용할 모델을 명시적으로 내려받아야 합니다. 코어가 모델을 자동 설치하지 않습니다.
